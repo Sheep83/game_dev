@@ -96,10 +96,6 @@ end
     @health -= $attack
   end
 
-  def xpinc
-    @xp += 50
-  end
-
   def win (player, monster)
     player.wins += 1
     puts "#{player.name} has slain #{monster.name} the #{monster.type}! :)"
@@ -174,7 +170,7 @@ end
     sleep 1
     puts "#{player.name} has insufficient mana."
     puts
-    sleep1
+    sleep 1 
   end
 
 end

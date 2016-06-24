@@ -10,6 +10,7 @@ class Monster
   attr_accessor :type
   attr_accessor :attack
   attr_accessor :damage
+  attr_accessor :turn_count
   
   def initialize(name, type)
     # binding.pry
@@ -17,7 +18,8 @@ class Monster
     @name = name
     @type = type['type']
     @attack = 0
-    @damage = 0 
+    @damage = 0
+    @turn_count = 0 
   end  
 
 end

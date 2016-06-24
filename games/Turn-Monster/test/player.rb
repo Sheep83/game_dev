@@ -16,11 +16,17 @@ class Player
     attr_accessor :wins
     attr_accessor :mana
     attr_accessor :level
+    attr_accessor :mana_ok
+    attr_accessor :mana_cost
+    attr_accessor :turn_count
+
 
     def initialize(name, health, mana, type, xp)
     @health = health
     @name = name
     @mana = mana
+    @mana_ok = false
+    @mana_cost = 0
     @type = type
     @xp = xp
     @inventory = Array.new
@@ -30,11 +36,24 @@ class Player
     @wins = 0
     @def_rating = 0
     @hit_rating = 0
+    @turn_count = 0
     end
 
     def reset
         @health = 100
         @mana = 100
     end
+
+    def xpinc
+      @xp += 50
+    end
+
+    def mana_check
+        if @mana >= @mana_cost
+        @mana_ok = true
+        else @mana_ok = false 
+        end
+    end
+
 
 end
