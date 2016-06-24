@@ -134,7 +134,7 @@ class Game
         interface.win(player, monster)
         xpinc(player)
         dice.roll_for_loot(100)
-        binding.pry
+        # binding.pry
         if dice.looted == true
           loot = Loot.new(loot_type.sample, loot_enchant.sample)
           # binding.pry
