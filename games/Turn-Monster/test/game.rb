@@ -76,9 +76,13 @@ class Game
     loot_type = [ 'Sword', 'Staff', 'Codex', 'Robes', 'Cloak']
     loot_enchant = ['Fire', 'Ice', 'Focus', 'Vitality', 'Mana']
     $game_state = 1
-    unless $game_state == 0
+    unless $game_state == 0 
     interface.mreport(monster)
+    binding.pry
+
+      if player.health && monster.health > 0
       loop do
+        #start of combat loop
         if player.health > 0
         interface.choose_attack(player)
         choice = gets.chomp
@@ -119,22 +123,29 @@ class Game
         interface.finalrep(player)
         break
         end
+
         if monster.health > 0 
         interface.attack_init(monster, player)
         dice.roll_for_hit(100)
         # binding.pry
-        if dice.hit == true
-          interface.hit(monster, player)
-          monster_attack(monster, player)
-        else monster.damage = 0
-          interface.no_hit(monster, player)
-        end
+          if dice.hit == true
+            interface.hit(monster, player)
+            monster_attack(monster, player)
+            else monster.damage = 0
+            interface.no_hit(monster, player)
+            end
         interface.def_report(monster, player)
         elsif monster.health <= 0
         interface.win(player, monster)
         xpinc(player)
-        dice.roll_for_loot(100)
-        binding.pry
+        break
+        end
+      end#### end of combat loop
+    end###end of while loop
+
+        if monster.health <= 0
+          dice.roll_for_loot(100)
+        # binding.pry
         if dice.looted == true
           loot = Loot.new(loot_type.sample, loot_enchant.sample)
           # binding.pry
@@ -143,10 +154,11 @@ class Game
         else interface.no_loot_report(player)
         end 
         interface.finalrep(player)
-        break
+        elsif player.health <= 0
         end
-      end ####loop end
-    end ####unless end
+      end###end of unless loop
+
+
   end ###def end
 
 end ###class end
@@ -157,6 +169,9 @@ end ###class end
   interface.title
   interface.player_init
   player = Player.new(interface.player_name, 100, 100, interface.player_type, 0)
+
+
+  #start of gane engine loop
   while $game_state == 1
   interface.monster_init
   monster = Monster.new(interface.monster_name, interface.monster_type)
@@ -171,6 +186,7 @@ end ###class end
     $game_state = 1
     end
   end
+  ### end of loop
 
 
 

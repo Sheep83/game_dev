@@ -170,6 +170,13 @@ end
     puts " "
   end
 
+  def no_mana(player)
+    sleep 1
+    puts "#{player.name} has insufficient mana."
+    puts
+    sleep1
+  end
+
 end
 
 #define method to output loot stats
