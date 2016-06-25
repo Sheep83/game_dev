@@ -21,7 +21,7 @@ class Player
     attr_accessor :turn_count
 
 
-    def initialize(name, health, mana, type, xp)
+    def initialize(name, health, mana, type, xp, runner)
     @health = health
     @name = name
     @mana = mana
@@ -37,6 +37,7 @@ class Player
     @def_rating = 0
     @hit_rating = 0
     @turn_count = 0
+    @runner = runner
     end
 
     def reset
@@ -53,6 +54,12 @@ class Player
         @mana_ok = true
         else @mana_ok = false 
         end
+    end
+
+    def save(player)
+        sql = "INSERT INTO players (name, health, mana, level, xp) VALUES ('#{@name}', '#{@health}', '#{@mana}', #{@level}, '#{@xp}') RETURNING *"
+        result = @runner.run(sql)
+        binding.pry
     end
 
 

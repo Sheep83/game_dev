@@ -173,7 +173,18 @@ end
     sleep 1 
   end
 
+  def save_player(player)
+    puts "Would you like to save the player's progress?"
+    yn = gets.chomp
+    if yn == "y"
+    player.save(player)
+    else 
+    # $game_state = 1
+    end
+  end
+
 end
+
 
   
 

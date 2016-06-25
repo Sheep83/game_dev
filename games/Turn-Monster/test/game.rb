@@ -5,6 +5,7 @@ require_relative('player')
 require_relative('monster')
 require_relative('dice')
 require_relative('loot')
+require_relative( 'db/sql_runner' )
 
 
 $game_state = 0
@@ -80,7 +81,7 @@ class Game
       choice = gets.chomp
       case when choice == "1"
       player.mana_cost = 0
-      binding.pry
+      # binding.pry
       interface.attack_init(player, monster)
       dice.roll_for_hit(100)
         if dice.hit == true
@@ -118,7 +119,7 @@ class Game
       end###case end
       case when choice == "3"
       player.mana_cost = 80
-      binding.pry
+      # binding.pry
       player.mana_check
         if player.mana_ok == true
         interface.attack_init(player, monster)
@@ -162,11 +163,13 @@ end
   
 loot_type = [ 'Sword', 'Staff', 'Codex', 'Robes', 'Cloak']
 loot_enchant = ['Fire', 'Ice', 'Focus', 'Vitality', 'Mana']  
+runner = SqlRunner.new({dbname: 'tm_test', host: 'localhost'})
 dice = Dice.new(100)
 interface = Input.new()
 interface.title
 interface.player_init
-player = Player.new(interface.player_name, 100, 100, interface.player_type, 0)
+player = Player.new(interface.player_name, 100, 100, interface.player_type, 0, runner)
+interface.save_player(player)
 interface.monster_init  
 monster = Monster.new(interface.monster_name, interface.monster_type)
 game = Game.new(player, monster, interface, dice)
