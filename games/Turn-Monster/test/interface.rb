@@ -175,6 +175,5 @@ end
 
 end
 
-#define method to output loot stats
   
 

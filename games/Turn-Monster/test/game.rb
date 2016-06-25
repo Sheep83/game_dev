@@ -162,8 +162,6 @@ end
   
 loot_type = [ 'Sword', 'Staff', 'Codex', 'Robes', 'Cloak']
 loot_enchant = ['Fire', 'Ice', 'Focus', 'Vitality', 'Mana']  
-$game_state = 1
-while $game_state == 1
 dice = Dice.new(100)
 interface = Input.new()
 interface.title
@@ -172,8 +170,12 @@ player = Player.new(interface.player_name, 100, 100, interface.player_type, 0)
 interface.monster_init  
 monster = Monster.new(interface.monster_name, interface.monster_type)
 game = Game.new(player, monster, interface, dice)
-# start.call
+$game_state = 1
+while $game_state == 1
+interface.monster_init  
+monster = Monster.new(interface.monster_name, interface.monster_type)
 interface.mreport(monster)
+player.reset
   loop do 
     if player.health > 0
     game.player_turn(player, monster, dice)
@@ -209,7 +211,6 @@ yn = gets.chomp
     $game_state = 1
   end 
 end
-
 
 
 
