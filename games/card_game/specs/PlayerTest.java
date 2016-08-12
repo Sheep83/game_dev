@@ -32,7 +32,7 @@ public class PlayerTest {
   public void canGetCard(){
     hand = new Hand(deck, 0);
     player = new Player("Brian", hand);
-    Card card = player.getCard(card1);
+    Card card = player.addCard(card1);
     assertEquals(player.hand.getLength(), 1);
     assertEquals(card.getValue(), "A");
   }
@@ -40,8 +40,8 @@ public class PlayerTest {
   public void canRemoveByIndex(){
     hand = new Hand(deck, 0);
     player = new Player("Brian", hand);
-    player.getCard(card1);
-    player.getCard(card2);
+    player.addCard(card1);
+    player.addCard(card2);
     Card card = player.removeByIndex(1);
     assertEquals(card.getSuit(), "Hearts");
 

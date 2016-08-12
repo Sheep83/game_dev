@@ -8,7 +8,6 @@ public class Deck {
     String[] values = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
     String[] suit = {"Clubs", "Spades", "Diamonds", "Hearts"};
 
-    // static boolean firstThread = true;
     public Deck(){
         for (int i = 0; i<suit.length; i++) {
             for(int j=0; j<values.length; j++){
@@ -17,20 +16,18 @@ public class Deck {
         }
         //shuffle 
         Collections.shuffle(this.cards);
-
     }
-
     public ArrayList<Card> getDeck(){
         return cards;
     }
-
     public Card drawCard(){
         return cards.remove(0);
     }
-
+    public void dealCardToPlayer(Player player){
+        player.addCard(this.drawCard());
+    }
     public int getCardsLeft(){
         return cards.size();
-
     }
 
     public void dropQueens(){

@@ -24,7 +24,7 @@ public class Player {
   public String getName(){
     return name;
   }
-  public Card getCard(Card card){
+  public Card addCard(Card card){
     this.hand.cards.add(card);
     return card;
   }
