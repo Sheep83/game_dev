@@ -4,12 +4,15 @@ import java.util.*;
 public class Game {
   public static Deck deck;
   public static ArrayList<Player> players = new ArrayList<Player>();
+  public static Viewer viewer;
+  public static ArrayList<String> initNames = new ArrayList<String>();
   public Player player, player1, player2;
   public Random random;
   public int activePlayer;
   public Card currentCard;
-  public boolean win = false;
+  public static boolean gameActive = true;
   public int outCount = 0;
+  public Hand hand;
 
   //GAME CONSTRUCTOR
   public Game(){
@@ -21,6 +24,12 @@ public class Game {
     System.out.println("Player " + player.getName() + " created with a hand of " + player.getHandSize());
     return player;
   }
+  public void createPlayers(ArrayList<String> initNames, Deck deck){
+    for (String name : initNames){
+      Hand hand = new Hand(deck, 0);
+      this.createPlayer(name, hand);
+    }
+  }
   public ArrayList<Player> getPlayers(){
     System.out.println("There are " + players.size() + " players");
     System.out.println(players);
@@ -30,7 +39,7 @@ public class Game {
     return players.get(index);
   }
   public void allTakeCards(ArrayList<Player> players){
-    if (players.size() >= 2){
+    if (players.size() > 1){
       for (int i=0;i<players.size()-1;i++) {
         Player takingPlayer = this.players.get(i);
         Player givingPlayer = this.players.get(i+1);
@@ -45,10 +54,9 @@ public class Game {
         }
         takingPlayer.dropPairs();
         if(takingPlayer.checkIfOut() == true){
-          this.outCount +=1;
           players.remove(takingPlayer);
+          this.outCount +=1;
         }  
-
       }
       Player lastPlayer = this.players.get(this.players.size()-1);
       Player firstPlayer = this.players.get(0);
@@ -68,7 +76,7 @@ public class Game {
       }
     }else
     {
-      this.gameOver();
+      this.gameOver(players);
     }
   }
   public void getAllHandSizes(){
@@ -94,45 +102,63 @@ public class Game {
       System.out.println(player.getHandSize());
     }
   }
-  public void gameOver(){
-    System.out.println("Game Over!");
+  public void gameOver(ArrayList<Player> players){
+    System.out.println(" ");
+    System.out.println("Game Over! " + players.get(0).getName() + " wins/loses :)");
   }
 
 
 //MAIN ENTRY POINT
   public static void main(String[] args){
+    while (gameActive == true){
     // deck = new Deck();
-    Game game = new Game();
-    deck = game.createDeck();
+      Game game = new Game();
+      deck = game.createDeck();
+      viewer = new Viewer();
+
     //Interface goes here
-    deck.dropQueens();
-    Hand p1Hand = new Hand(deck, 0);
-    Hand p2Hand = new Hand(deck, 0);
-    Hand p3Hand = new Hand(deck, 0);
-    Hand p4Hand = new Hand(deck, 0);
+      initNames = viewer.gameStart();
+      System.out.println(initNames);
+      game.createPlayers(initNames, deck);
+      deck.dropQueens();
+    // Hand p1Hand = new Hand(deck, 0);
+    // Hand p2Hand = new Hand(deck, 0);
+    // Hand p3Hand = new Hand(deck, 0);
+    // Hand p4Hand = new Hand(deck, 0);
     // Player player1 = new Player("Brian", p1Hand);
     // Player player2 = new Player("Josh", p2Hand);
-    game.createPlayer("Brian", p1Hand);
-    game.createPlayer("Josh", p2Hand);
-    game.createPlayer("Theo", p3Hand);
-    game.createPlayer("Yoda", p4Hand);
+    // game.createPlayer("Brian", p1Hand);
+    // game.createPlayer("Josh", p2Hand);
+    // game.createPlayer("Theo", p3Hand);
+    // game.createPlayer("Yoda", p4Hand);
     // game.getPlayers();
-    deck.dealToAll(players);
+      deck.dealToAll(players);
     //print deck
     // System.out.println(deck.getDeck());
-    System.out.println(deck.getCardsLeft());
-    game.dropAllPairs(players);
-    game.dropAllPairs(players);
-    while(game.outCount <3){
-      game.showAllHands(players);
-      game.allTakeCards(players);
-      game.showAllHands(players);
+      System.out.println(deck.getCardsLeft());
+      game.dropAllPairs(players);
+      game.dropAllPairs(players);
+      while(game.outCount < initNames.size()-1){
+        game.showAllHands(players);
+        game.allTakeCards(players);
+        game.showAllHands(players);
+      }
+      game.gameOver(players);
+      
+      if (viewer.playAgain() == true){
+          gameActive = true;
+      }else
+      {
+        gameActive = false;
+      }
+    
+
     }
-    game.gameOver();
+
   }
 
-
 }
+
 
 
 
