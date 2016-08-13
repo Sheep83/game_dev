@@ -3,19 +3,18 @@ import java.util.*;
 
 public class Game {
   public static Deck deck;
-  public static ArrayList<Player> players = new ArrayList<Player>();
+  public static ArrayList<Player> players;
   public static Viewer viewer;
   public static ArrayList<String> initNames = new ArrayList<String>();
   public Player player, player1, player2;
   public Random random;
-  public int activePlayer;
-  public Card currentCard;
   public static boolean gameActive = true;
   public int outCount = 0;
   public Hand hand;
 
   //GAME CONSTRUCTOR
   public Game(){
+    this.players = new ArrayList<Player>();
   }
 
   public Player createPlayer(String name, Hand hand){
@@ -111,30 +110,15 @@ public class Game {
 //MAIN ENTRY POINT
   public static void main(String[] args){
     while (gameActive == true){
-    // deck = new Deck();
       Game game = new Game();
       deck = game.createDeck();
+      deck.dropQueens();
       viewer = new Viewer();
-
     //Interface goes here
       initNames = viewer.gameStart();
       System.out.println(initNames);
       game.createPlayers(initNames, deck);
-      deck.dropQueens();
-    // Hand p1Hand = new Hand(deck, 0);
-    // Hand p2Hand = new Hand(deck, 0);
-    // Hand p3Hand = new Hand(deck, 0);
-    // Hand p4Hand = new Hand(deck, 0);
-    // Player player1 = new Player("Brian", p1Hand);
-    // Player player2 = new Player("Josh", p2Hand);
-    // game.createPlayer("Brian", p1Hand);
-    // game.createPlayer("Josh", p2Hand);
-    // game.createPlayer("Theo", p3Hand);
-    // game.createPlayer("Yoda", p4Hand);
-    // game.getPlayers();
       deck.dealToAll(players);
-    //print deck
-    // System.out.println(deck.getDeck());
       System.out.println(deck.getCardsLeft());
       game.dropAllPairs(players);
       game.dropAllPairs(players);
@@ -144,17 +128,11 @@ public class Game {
         game.showAllHands(players);
       }
       game.gameOver(players);
-      
-      if (viewer.playAgain() == true){
-          gameActive = true;
-      }else
-      {
+      if (viewer.playAgain() == false){
         gameActive = false;
       }
-    
 
     }
-
   }
 
 }

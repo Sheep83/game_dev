@@ -5,13 +5,14 @@ public class Viewer {
 
 Scanner user_input = new Scanner( System.in );
 int numPlayers;
-public ArrayList<String> playerNames = new ArrayList<String>();
+public ArrayList<String> playerNames;
 
    // public String 
    // public String 
 
 
   public Viewer(){
+   this.playerNames = new ArrayList<String>();
   
 }
 public ArrayList<String> gameStart(){
