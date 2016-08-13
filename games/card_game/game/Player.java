@@ -22,6 +22,10 @@ public class Player {
     this.hand.cards.add(card);
     return card;
   }
+  public void takeFromPlayer(Player player, int randCard){
+    this.hand.cards.add(player.hand.cards.remove(randCard));
+    // this.dropPairs();
+  }
   public Card removeByIndex(int index){
     Card card = this.hand.cards.remove(index);
     return card;
@@ -32,6 +36,15 @@ public class Player {
   public int getHandSize(){
     return hand.cards.size();
   }
+  public boolean checkIfOut(){
+    if(this.getHandSize() == 0){
+        System.out.println(this.getName() + " is out!");
+        return true;
+    }else
+    {
+      return false;
+    }
+  }
   public void dropPairs(){
 
     for(int i=0; i<hand.cards.size(); i++)
@@ -40,7 +53,6 @@ public class Player {
       {
         Card card = hand.cards.get(i);
         Card card2 = hand.cards.get(j);
-
         if(card.value == card2.value)
           try{
             System.out.println("");
@@ -48,14 +60,9 @@ public class Player {
             System.out.println(hand.cards.get(i).toString());
             System.out.println(hand.cards.get(j).toString());
             hand.cards.remove(card);
-            hand.cards.remove(card2);
-            // this.removeByIndex(i);
-
-          // hand.cards.get(j).toString();
-
-          // hand.cards.remove(j);
-          // hand.cards.remove(hand.cards.get(i));
-          // hand.cards.remove(hand.cards.get(j));   
+            System.out.println(card.toString() + " removed.");
+            hand.cards.remove(card2); 
+            System.out.println(card2.toString() + " removed.");
           }
           catch (IndexOutOfBoundsException ex){
             System.out.println("Pairs Removed!");

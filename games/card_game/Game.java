@@ -8,6 +8,8 @@ public class Game {
   public Random random;
   public int activePlayer;
   public Card currentCard;
+  public boolean win = false;
+  public int outCount = 0;
 
   //GAME CONSTRUCTOR
   public Game(){
@@ -27,6 +29,40 @@ public class Game {
   public Player getPlayerByIndex(Integer index){
     return players.get(index);
   }
+  public void allTakeCards(ArrayList<Player> players){
+    for (int i=0;i<players.size()-1;i++) {
+      Player takingPlayer = this.players.get(i);
+      Player givingPlayer = this.players.get(i+1);
+      Random random = new Random();
+      int  n = random.nextInt(givingPlayer.getHandSize());
+      System.out.println(n);
+      takingPlayer.takeFromPlayer(givingPlayer, n);
+      System.out.println(takingPlayer.getName() + "has taken a card from" + givingPlayer.getName());
+      takingPlayer.dropPairs();
+      if(takingPlayer.checkIfOut() == true){
+        players.remove(takingPlayer);
+        this.outCount +=1;
+      }  
+    }
+    Player lastPlayer = this.players.get(this.players.size()-1);
+    Player firstPlayer = this.players.get(0);
+    Random random = new Random();
+    int  x = random.nextInt(firstPlayer.getHandSize());
+    System.out.println(x);
+    lastPlayer.takeFromPlayer(firstPlayer, x);
+    System.out.println(lastPlayer.getName() + "has taken a card from" + firstPlayer.getName());
+    lastPlayer.dropPairs();
+    if(lastPlayer.checkIfOut() == true){
+      players.remove(lastPlayer);
+      this.outCount +=1;
+    }
+    // takingPlayer.checkIfOut();  
+  }
+  public void getAllHandSizes(){
+    for (Player player : players){
+      System.out.println(player.getHandSize());
+    }
+  }
   public Deck createDeck(){
     return new Deck();
   }
@@ -37,7 +73,19 @@ public class Game {
       player.hand.printCards();
       // System.out.println("");
     }
+
   }
+  public void dropAllPairs(ArrayList<Player> players){
+    for (Player player : players){
+      player.dropPairs();
+      System.out.println(player.getHandSize());
+    }
+  }
+  
+  public void gameOver(){
+    System.out.println("Game Over!");
+  }
+
 
 //MAIN ENTRY POINT
   public static void main(String[] args){
@@ -49,29 +97,32 @@ public class Game {
     Hand p2Hand = new Hand(deck, 0);
     Hand p3Hand = new Hand(deck, 0);
     Hand p4Hand = new Hand(deck, 0);
-    // Hand p5Hand = new Hand(deck, 0);
-
     // Player player1 = new Player("Brian", p1Hand);
     // Player player2 = new Player("Josh", p2Hand);
     game.createPlayer("Brian", p1Hand);
     game.createPlayer("Josh", p2Hand);
     game.createPlayer("Theo", p3Hand);
     game.createPlayer("Yoda", p4Hand);
-    // game.createPlayer("Han", p5Hand);
-
     // game.getPlayers();
     deck.dealToAll(players);
     //print deck
-    System.out.println(deck.getDeck());
+    // System.out.println(deck.getDeck());
     System.out.println(deck.getCardsLeft());
+    // game.showAllHands(players);
+    game.dropAllPairs(players);
+    game.dropAllPairs(players);
+    
     game.showAllHands(players);
-    players.get(0).dropPairs();
-    System.out.println(players.get(0).getHandSize());
-    // System.out.println(game.getPlayerByIndex(0)); 
-    // System.out.println(player1.getHandSize());
+    do{
 
+      game.allTakeCards(players);
+      game.showAllHands(players);
+    }while(game.outCount < game.players.size()-1);
   }
+    // game.gameOver();
+
 
 }
+
 
 

@@ -3,9 +3,9 @@ import org.junit.*;
 import game.*;
 
 public class PlayerTest {
-    Player player;
+    Player player, player1, player2;
     Card card1, card2, card3, card4, card5;
-    Hand hand, hand1;
+    Hand hand, hand1, hand2;
     Deck deck;
   @Before 
   public void before(){
@@ -71,5 +71,21 @@ public class PlayerTest {
     player.dropPairs();
     assertEquals(3, player.getHandSize());
   }
+  @Test 
+  public void canTakeFromPlayer(){
+    hand1 = new Hand(deck, 5);
+    hand2 = new Hand(deck, 5);
+    player1 = new Player("Brian", hand1);
+    player2 = new Player("Theo", hand2);
+    player1.takeFromPlayer(player2, 1);
+    assertEquals(6, player1.getHandSize());
+    assertEquals(4, player2.getHandSize());
+  }
+  // public void canRemoveIfOut(){
+  //   hand = new Hand(deck, 0);
+  //   player1 = new Player("Brian", hand1);
+  //   player1.checkIfOut();
+  //   assertEquals(6, player1.getHandSize());
+  // }
   
 }
