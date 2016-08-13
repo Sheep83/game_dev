@@ -12,10 +12,19 @@ public class CardTest {
   }
   @Test
   public void canGetSuit(){
-    assertEquals(card.getSuit(),"Spades");
+    assertEquals("Spades", card.getSuit());
   }
   @Test
   public void canGetValue(){
-    assertEquals(card.getValue(), "A");
+    assertEquals("A", card.getValue());
+  }
+  @Test
+  public void canSetSuit(){
+    card.setSuit("Diamonds");
+    assertEquals("Diamonds", card.getSuit());
+  }@Test
+  public void canSetValue(){
+    card.setValue("7");
+    assertEquals("7", card.getValue());
   }
 }

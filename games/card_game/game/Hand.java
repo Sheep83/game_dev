@@ -7,16 +7,16 @@ public class Hand {
     public Hand(Deck deck, int size){
         for (int i = 0; i<size; i++) {
             cards.add(deck.drawCard());
-            }
         }
-        public int getLength(){
-            return cards.size();
-        }
-        public void printCards(){
-            for (Card card : cards){
-                System.out.print(card.toString());
-            }
-        }
-
-
     }
+    public int getLength(){
+        return cards.size();
+    }
+    public void printCards(){
+        for (Card card : cards){
+            System.out.print(card.toString());
+        }
+    }
+
+
+}

@@ -30,33 +30,46 @@ public class Game {
     return players.get(index);
   }
   public void allTakeCards(ArrayList<Player> players){
-    for (int i=0;i<players.size()-1;i++) {
-      Player takingPlayer = this.players.get(i);
-      Player givingPlayer = this.players.get(i+1);
+    if (players.size() >= 2){
+      for (int i=0;i<players.size()-1;i++) {
+        Player takingPlayer = this.players.get(i);
+        Player givingPlayer = this.players.get(i+1);
+        Random random = new Random();
+        int  n = random.nextInt(givingPlayer.getHandSize() + 0);
+        System.out.println(n);
+        takingPlayer.takeFromPlayer(givingPlayer, n);
+        System.out.println(takingPlayer.getName() + " takes a card from " + givingPlayer.getName());
+        if(n == 0 && givingPlayer.checkIfOut() == true){
+          players.remove(givingPlayer);
+          this.outCount +=1;
+        }
+        takingPlayer.dropPairs();
+        if(takingPlayer.checkIfOut() == true){
+          this.outCount +=1;
+          players.remove(takingPlayer);
+        }  
+
+      }
+      Player lastPlayer = this.players.get(this.players.size()-1);
+      Player firstPlayer = this.players.get(0);
       Random random = new Random();
-      int  n = random.nextInt(givingPlayer.getHandSize());
-      System.out.println(n);
-      takingPlayer.takeFromPlayer(givingPlayer, n);
-      System.out.println(takingPlayer.getName() + "has taken a card from" + givingPlayer.getName());
-      takingPlayer.dropPairs();
-      if(takingPlayer.checkIfOut() == true){
-        players.remove(takingPlayer);
+      int  x = random.nextInt(firstPlayer.getHandSize() + 0);
+      System.out.println(x);
+      if(x == 0 && firstPlayer.checkIfOut() == true){
+        players.remove(firstPlayer);
         this.outCount +=1;
-      }  
+      }
+      lastPlayer.takeFromPlayer(firstPlayer, x);
+      System.out.println(lastPlayer.getName() + " takes a card from " + firstPlayer.getName());
+      lastPlayer.dropPairs();
+      if(lastPlayer.checkIfOut() == true){
+        this.outCount +=1;
+        players.remove(lastPlayer);
+      }
+    }else
+    {
+      this.gameOver();
     }
-    Player lastPlayer = this.players.get(this.players.size()-1);
-    Player firstPlayer = this.players.get(0);
-    Random random = new Random();
-    int  x = random.nextInt(firstPlayer.getHandSize());
-    System.out.println(x);
-    lastPlayer.takeFromPlayer(firstPlayer, x);
-    System.out.println(lastPlayer.getName() + "has taken a card from" + firstPlayer.getName());
-    lastPlayer.dropPairs();
-    if(lastPlayer.checkIfOut() == true){
-      players.remove(lastPlayer);
-      this.outCount +=1;
-    }
-    // takingPlayer.checkIfOut();  
   }
   public void getAllHandSizes(){
     for (Player player : players){
@@ -81,7 +94,6 @@ public class Game {
       System.out.println(player.getHandSize());
     }
   }
-  
   public void gameOver(){
     System.out.println("Game Over!");
   }
@@ -92,6 +104,7 @@ public class Game {
     // deck = new Deck();
     Game game = new Game();
     deck = game.createDeck();
+    //Interface goes here
     deck.dropQueens();
     Hand p1Hand = new Hand(deck, 0);
     Hand p2Hand = new Hand(deck, 0);
@@ -108,18 +121,15 @@ public class Game {
     //print deck
     // System.out.println(deck.getDeck());
     System.out.println(deck.getCardsLeft());
-    // game.showAllHands(players);
     game.dropAllPairs(players);
     game.dropAllPairs(players);
-    
-    game.showAllHands(players);
-    do{
-
+    while(game.outCount <3){
+      game.showAllHands(players);
       game.allTakeCards(players);
       game.showAllHands(players);
-    }while(game.outCount < game.players.size()-1);
+    }
+    game.gameOver();
   }
-    // game.gameOver();
 
 
 }

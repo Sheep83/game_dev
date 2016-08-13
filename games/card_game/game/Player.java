@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Player {
 
-  // public ArrayList<Card> hand = new ArrayList<Card>();
   private String name;
   private int score;
   public Hand hand;
@@ -38,8 +37,8 @@ public class Player {
   }
   public boolean checkIfOut(){
     if(this.getHandSize() == 0){
-        System.out.println(this.getName() + " is out!");
-        return true;
+      System.out.println(this.getName() + " is out!");
+      return true;
     }else
     {
       return false;
@@ -57,8 +56,8 @@ public class Player {
           try{
             System.out.println("");
             System.out.println("Pair Found!");
-            System.out.println(hand.cards.get(i).toString());
-            System.out.println(hand.cards.get(j).toString());
+            // System.out.println(hand.cards.get(i).toString());
+            // System.out.println(hand.cards.get(j).toString());
             hand.cards.remove(card);
             System.out.println(card.toString() + " removed.");
             hand.cards.remove(card2); 
@@ -70,6 +69,6 @@ public class Player {
 
         }
       }
-
-    } 
+      this.checkIfOut();
+    }
   }

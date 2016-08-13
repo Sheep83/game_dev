@@ -31,7 +31,7 @@ public class Deck {
     }
     public void dealToAll (ArrayList<Player> players){
         do {
-           for(Player player : players)try {
+         for(Player player : players)try {
             this.dealCardToPlayer(player);
             System.out.println("Cards left in deck: " + cards.size());
             System.out.println(player.getName());
@@ -43,9 +43,6 @@ public class Deck {
     }
     while (cards.size() > 0);
 }
-
-
-
 public void dropQueens(){
     Iterator<Card> card = cards.iterator();
     while (card.hasNext()) {

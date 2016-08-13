@@ -3,10 +3,10 @@ import org.junit.*;
 import game.*;
 
 public class PlayerTest {
-    Player player, player1, player2;
-    Card card1, card2, card3, card4, card5;
-    Hand hand, hand1, hand2;
-    Deck deck;
+  Player player, player1, player2;
+  Card card1, card2, card3, card4, card5;
+  Hand hand, hand1, hand2;
+  Deck deck;
   @Before 
   public void before(){
     // player = new Player("Brian");
