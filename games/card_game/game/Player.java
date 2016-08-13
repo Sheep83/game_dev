@@ -9,17 +9,11 @@ public class Player {
   public Hand hand;
   public int index;
 
-
-
   public Player(String name, Hand hand){
     this.name = name;
     this.score = 0;
     this.hand = hand;
   }
-  // public Hand addHand(Hand hand){
-  //   this.hand = hand;
-  //   return this.hand;
-  // }
 
   public String getName(){
     return name;

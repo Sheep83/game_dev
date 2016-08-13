@@ -12,6 +12,11 @@ public class Hand {
         public int getLength(){
             return cards.size();
         }
+        public void printCards(){
+            for (Card card : cards){
+                System.out.print(card.toString());
+            }
+        }
 
 
     }

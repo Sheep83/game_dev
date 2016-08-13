@@ -29,15 +29,31 @@ public class Deck {
     public int getCardsLeft(){
         return cards.size();
     }
-
-    public void dropQueens(){
-        Iterator<Card> card = cards.iterator();
-        while (card.hasNext()) {
-            Card newCard = card.next();
-            if (newCard.value == "Queen" && newCard.suit != "Spades")
-                card.remove();
+    public void dealToAll (ArrayList<Player> players){
+        do {
+           for(Player player : players)try {
+            this.dealCardToPlayer(player);
+            System.out.println("Cards left in deck: " + cards.size());
+            System.out.println(player.getName());
+            System.out.println("Cards in " + player.getName() + "'s hand: " + player.getHandSize());
+        }
+        catch (IndexOutOfBoundsException ex){
+            System.out.println("No Cards Left!");
         }
     }
+    while (cards.size() > 0);
+}
+
+
+
+public void dropQueens(){
+    Iterator<Card> card = cards.iterator();
+    while (card.hasNext()) {
+        Card newCard = card.next();
+        if (newCard.value == "Queen" && newCard.suit != "Spades")
+            card.remove();
+    }
+}
 
 }
 

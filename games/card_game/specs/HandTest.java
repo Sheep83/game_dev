@@ -21,6 +21,4 @@ public class HandTest {
     hand = new Hand(deck, 5);
     assertEquals(5, hand.getLength());
   }
-  
-
 }

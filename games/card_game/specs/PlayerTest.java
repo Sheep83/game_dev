@@ -14,7 +14,6 @@ public class PlayerTest {
     card1 = new Card("Spades", "A");
     card2 = new Card("Hearts", "Q");
     deck = new Deck();
-
   }
   @Test
   public void canGetName(){
