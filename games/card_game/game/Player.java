@@ -32,4 +32,37 @@ public class Player {
   public int getHandSize(){
     return hand.cards.size();
   }
-}
+  public void dropPairs(){
+
+    for(int i=0; i<hand.cards.size(); i++)
+    {
+      for(int j=i+1; j<hand.cards.size(); j++)
+      {
+        Card card = hand.cards.get(i);
+        Card card2 = hand.cards.get(j);
+
+        if(card.value == card2.value)
+          try{
+            System.out.println("");
+            System.out.println("Pair Found!");
+            System.out.println(hand.cards.get(i).toString());
+            System.out.println(hand.cards.get(j).toString());
+            hand.cards.remove(card);
+            hand.cards.remove(card2);
+            // this.removeByIndex(i);
+
+          // hand.cards.get(j).toString();
+
+          // hand.cards.remove(j);
+          // hand.cards.remove(hand.cards.get(i));
+          // hand.cards.remove(hand.cards.get(j));   
+          }
+          catch (IndexOutOfBoundsException ex){
+            System.out.println("Pairs Removed!");
+          } 
+
+        }
+      }
+
+    } 
+  }

@@ -65,6 +65,8 @@ public class Game {
     System.out.println(deck.getDeck());
     System.out.println(deck.getCardsLeft());
     game.showAllHands(players);
+    players.get(0).dropPairs();
+    System.out.println(players.get(0).getHandSize());
     // System.out.println(game.getPlayerByIndex(0)); 
     // System.out.println(player1.getHandSize());
 
