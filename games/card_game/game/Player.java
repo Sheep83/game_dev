@@ -45,7 +45,6 @@ public class Player {
     }
   }
   public void dropPairs(){
-
     for(int i=0; i<hand.cards.size(); i++)
     {
       for(int j=i+1; j<hand.cards.size(); j++)

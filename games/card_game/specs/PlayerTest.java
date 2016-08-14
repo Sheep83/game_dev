@@ -9,13 +9,11 @@ public class PlayerTest {
   Deck deck;
   @Before 
   public void before(){
-    // player = new Player("Brian");
     card1 = new Card("Spades", "A");
     card2 = new Card("Hearts", "7");
     card3 = new Card("Diamonds", "K");
     card4 = new Card("Spades", "3");
     card5 = new Card("Clubs", "7");
-
     deck = new Deck();
   }
   @Test
@@ -81,11 +79,5 @@ public class PlayerTest {
     assertEquals(6, player1.getHandSize());
     assertEquals(4, player2.getHandSize());
   }
-  // public void canRemoveIfOut(){
-  //   hand = new Hand(deck, 0);
-  //   player1 = new Player("Brian", hand1);
-  //   player1.checkIfOut();
-  //   assertEquals(6, player1.getHandSize());
-  // }
   
 }

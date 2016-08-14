@@ -42,9 +42,10 @@ public class Game {
       for (int i=0;i<players.size()-1;i++) {
         Player takingPlayer = this.players.get(i);
         Player givingPlayer = this.players.get(i+1);
-        Random random = new Random();
-        int  n = random.nextInt(givingPlayer.getHandSize() + 0);
-        System.out.println(n);
+        // Random random = new Random();
+        // int  n = random.nextInt(givingPlayer.getHandSize() + 0);
+        // System.out.println(n);
+        int n = viewer.chooseCard(takingPlayer, givingPlayer);
         takingPlayer.takeFromPlayer(givingPlayer, n);
         System.out.println(takingPlayer.getName() + " takes a card from " + givingPlayer.getName());
         if(n == 0 && givingPlayer.checkIfOut() == true){
@@ -59,9 +60,10 @@ public class Game {
       }
       Player lastPlayer = this.players.get(this.players.size()-1);
       Player firstPlayer = this.players.get(0);
-      Random random = new Random();
-      int  x = random.nextInt(firstPlayer.getHandSize() + 0);
-      System.out.println(x);
+      int x = viewer.chooseCard(lastPlayer, firstPlayer);
+      // Random random = new Random();
+      // int  x = random.nextInt(firstPlayer.getHandSize() + 0);
+      // System.out.println(x);
       if(x == 0 && firstPlayer.checkIfOut() == true){
         players.remove(firstPlayer);
         this.outCount +=1;
@@ -88,8 +90,7 @@ public class Game {
   }
   public void showAllHands(ArrayList<Player> players){
     for (Player player : players){
-      System.out.println("");
-      System.out.println(player.getName() + "'s Hand : ");
+      System.out.print(player.getName() + "'s Hand : ");
       player.hand.printCards();
       // System.out.println("");
     }
@@ -115,15 +116,15 @@ public class Game {
       deck.dropQueens();
       viewer = new Viewer();
     //Interface goes here
+      int gameType = viewer.chooseGame();
+      if (gameType == 1){
       initNames = viewer.gameStart();
-      System.out.println(initNames);
       game.createPlayers(initNames, deck);
       deck.dealToAll(players);
       System.out.println(deck.getCardsLeft());
       game.dropAllPairs(players);
       game.dropAllPairs(players);
       while(game.outCount < initNames.size()-1){
-        game.showAllHands(players);
         game.allTakeCards(players);
         game.showAllHands(players);
       }
@@ -131,10 +132,9 @@ public class Game {
       if (viewer.playAgain() == false){
         gameActive = false;
       }
-
     }
   }
-
+}
 }
 
 

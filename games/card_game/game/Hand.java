@@ -15,7 +15,8 @@ public class Hand {
     public void printCards(){
         for (Card card : cards){
             System.out.print(card.toString());
-            System.out.println("");
+
         }
+        System.out.println("");
     }
 }

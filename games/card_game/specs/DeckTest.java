@@ -6,6 +6,7 @@ public class DeckTest {
   Deck deck;
   Player player;
   Hand hand;
+  Card card;
   
   @Before 
   public void before(){
@@ -34,6 +35,13 @@ public class DeckTest {
     deck.dealCardToPlayer(player);
     assertEquals(deck.getCardsLeft(), 48);
     assertEquals(1, player.getHandSize());
+  }
+  @Test
+  public void canAddToDeck(){
+    deck.dropQueens();
+    card = new Card("A", "Spades");
+    deck.addToDeck(card);
+    assertEquals(50, deck.getCardsLeft());
   }
 
 

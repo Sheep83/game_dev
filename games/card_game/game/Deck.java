@@ -3,8 +3,6 @@ import java.util.*;
 
 public class Deck {
     public ArrayList<Card> cards = new ArrayList<Card>();
-
-
     String[] values = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
     String[] suit = {"Clubs", "Spades", "Diamonds", "Hearts"};
 
@@ -20,6 +18,10 @@ public class Deck {
     public ArrayList<Card> getDeck(){
         return cards;
     }
+    public Card addToDeck(Card card){
+        cards.add(card);
+        return card;
+    } 
     public Card drawCard(){
         return cards.remove(0);
     }

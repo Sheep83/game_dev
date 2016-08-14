@@ -4,11 +4,11 @@ import java.util.*;
 public class Card {
 
 
-   public String suit;
-   public String value;
+ public String suit;
+ public String value;
 
 
-   public Card(String suit, String value){
+ public Card(String suit, String value){
     this.suit = suit;
     this.value = value;
 }
@@ -24,7 +24,6 @@ public String getValue(){
 public void setValue(String value){
     this.value = value;
 }
-
 public String toString(){
     return "\n"+value + " of "+ suit;
 }
