@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Player Name"-->
+
+        <!--android:id="@+id/player_text"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Player Level"-->
+        <!--android:id="@+id/player_level"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Monster Name"-->
+
+        <!--android:id="@+id/monster_text"/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="Monster Type"-->
+    <!--android:id="@+id/monster_type"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Start Game!"-->
+        <!--android:id="@+id/start_button"-->
+        <!--/>-->
+
+</LinearLayout>
