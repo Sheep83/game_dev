@@ -18,7 +18,7 @@ public class ActivityLoot extends AppCompatActivity {
 
 
     private TextView mPlayerHeader, mPlayerXpHeader, mPlayerName, mPlayerXp, mLootHeader, mLootText;
-    private Button mTake, mDiscard;
+    private Button mTake, mDiscard, mEquip;
     private Player mPlayer;
     private Loot mLoot;
 
@@ -45,10 +45,11 @@ public class ActivityLoot extends AppCompatActivity {
         mLootHeader = (TextView) findViewById(R.id.loot_header);
         mLootText = (TextView) findViewById(R.id.loot_text);
         mTake = (Button) findViewById(R.id.take);
+        mEquip = (Button) findViewById(R.id.equip);
         mDiscard = (Button) findViewById(R.id.discard);
         if(mLoot != null)
         {
-            mLootText.setText(mLoot.getType() + "" + mLoot.getEnchant());
+            mLootText.setText(mLoot.getType() + " of " + mLoot.getEnchant());
         }
         mPlayerName.setText(mPlayer.getName());
         mPlayerXp.setText(String.valueOf(mPlayer.getXp()));
@@ -72,6 +73,25 @@ public class ActivityLoot extends AppCompatActivity {
             }
         });
 
+        mEquip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(ActivityLoot.this, Game.class);
+                mPlayer.equipItem(mLoot);
+                Log.d("Game:", "Item Equipped!");
+                //reset health and mana here
+                mPlayer.resetStats();
+                mPlayer.checkLevel();
+                ArrayList<Player> mPlayers = new ArrayList<>();
+                mPlayers.add(mPlayer);
+                //save player here
+                String newplayerarrayjson = new Gson().toJson(mPlayers);
+                SavedTaskPreferences.setStoredPlayer(context, newplayerarrayjson);
+                startActivity(intent);
+            }
+        });
+
         mDiscard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +109,8 @@ public class ActivityLoot extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
 

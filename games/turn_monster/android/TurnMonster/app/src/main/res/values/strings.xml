@@ -5,6 +5,12 @@
     <string name="settings_clear">Player Purged!</string>
     <string name="clear_button">Purge Player</string>
     <string name="no_mana">No Mana!</string>
+    <string name="character_button">View Character</string>
+    <string name="no_player_present">No saved player present. Redirecting to player creation...</string>
+    <string name="back_to_character">Returning to character view...</string>
+
+
+
 
 
 

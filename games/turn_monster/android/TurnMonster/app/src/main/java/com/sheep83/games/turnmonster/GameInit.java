@@ -1,5 +1,6 @@
 package com.sheep83.games.turnmonster;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,8 +21,8 @@ import java.util.Arrays;
 public class GameInit extends AppCompatActivity{
 
     String mMonsterName, mMonsterType;
-    TextView mPlayerName, mPlayerLevel, mMNameDisplay, mMTypeDisplay;
-//    Button mStartGame;
+    TextView mGameInitHeader, mPlayerName, mPlayerLevel, mMNameDisplay, mMTypeDisplay;
+    Button mStartGame, mCharacterView;
     Player mPlayer;
     Monster monster;
     Dice nullDice = new Dice();
@@ -31,6 +33,7 @@ public class GameInit extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_init);
         nullDice.setSides(mMonsterNames.size());
         mMonsterName = mMonsterNames.get(nullDice.roll());
         nullDice.setSides(mMonsterTypes.size());
@@ -41,15 +44,27 @@ public class GameInit extends AppCompatActivity{
         Log.d("Player JSON String : ", "" + json);
         Gson gson = new Gson();
         mPlayer = gson.fromJson(json, Player.class);
+        if(mPlayer.getEquipped() > 0){
+            for(Loot item : mPlayer.getEquippedArray()){
+                mPlayer.incFocus(item.getFocus());
+            }
+        }
         monster = new Monster(mMonsterName, mMonsterType, 100, 1);
-//        mPlayerName.setText(mPlayer.getName());
-//        mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
-//        mMNameDisplay.setText(String.valueOf(monster.getName()));
-//        mMTypeDisplay.setText(String.valueOf(monster.getType()));
+        mGameInitHeader = (TextView) findViewById(R.id.init_header);
+        mPlayerName = (TextView) findViewById(R.id.player_text);
+        mPlayerLevel = (TextView) findViewById(R.id.player_level);
+        mMNameDisplay = (TextView) findViewById(R.id.monster_text);
+        mMTypeDisplay = (TextView) findViewById(R.id.monster_type);
+        mStartGame = (Button) findViewById(R.id.start_button);
+        mCharacterView = (Button) findViewById(R.id.character_button);
+        mPlayerName.setText(mPlayer.getName());
+        mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
+        mMNameDisplay.setText(String.valueOf(monster.getName()));
+        mMTypeDisplay.setText(String.valueOf(monster.getType()));
 
-//        mStartGame.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        mStartGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String playerjson = new Gson().toJson(mPlayer);
                 String monsterjson = new Gson().toJson(monster);
                 String gamedicejson = new Gson().toJson(gameDice);
@@ -61,8 +76,35 @@ public class GameInit extends AppCompatActivity{
                 newIntent.putExtra("nulldice", nulldicejson);
 //                Log.d("Game:", "Start Button Clicked!");
                 startActivity(newIntent);
-//            }
-//        });
+            }
+        });
+
+        mCharacterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                String json_saved = SavedTaskPreferences.getStoredPlayer(context);
+                if (json_saved == null) {
+                    Intent intent = new Intent(GameInit.this, ActivityNewPlayer.class);
+                    Toast.makeText(GameInit.this, R.string.no_player_present,
+                            Toast.LENGTH_SHORT).show();
+                    Log.d("Game:", "Character Button Clicked but no saved player present");
+                    startActivity(intent);
+                } else {
+//                        Gson gson = new Gson();
+//                        Type objectType = new TypeToken<ArrayList<Player>>() {
+//                        }.getType();
+//                        ArrayList<Player> mPlayersArray = gson.fromJson(json_saved, objectType);
+//                        Log.d("Saved Player : ", mPlayersArray.get(0).getName() + "");
+//                        String playerjson = new Gson().toJson(mPlayersArray.get(0));
+                    Intent intent = new Intent(GameInit.this, ActivityCharacterView.class);
+                    intent.putExtra("player", json_saved);
+                    Log.d("Game:", "Character View Button Clicked!");
+                    startActivity(intent);
+                }
+            }
+
+        });
 
     }
 }

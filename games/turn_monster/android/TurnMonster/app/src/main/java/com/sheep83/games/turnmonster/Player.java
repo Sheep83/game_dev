@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Player implements Fightable{
 
     private String mName;
-    private int mHealth, mXp, mMana, mLevel, mTurnCount, mBaseDamage, mHitMod,mDefMod, mDmgMod, mMaxHealth, mHealthMod;
+    private int mHealth, mXp, mMana, mLevel, mTurnCount, mBaseDamage, mHitMod,mDefMod, mDmgMod, mMaxHealth, mHealthMod, mFocus;
     private ArrayList<Loot> mInventory, mEquipped;
     private ArrayList<Skill> mSkillTree, mSkillsKnown;
     private boolean mActive;
@@ -33,6 +33,7 @@ public class Player implements Fightable{
         mDefMod = 1;
         mDmgMod = 1;
         mHealthMod = 1;
+        mFocus = 1;
         mMaxHealth = mHealth;
         mActive = true;
         mBaseDamage = 40;
@@ -50,6 +51,10 @@ public class Player implements Fightable{
             return;
         }
 
+    }
+
+    public void equipItem(Loot item){
+        this.mEquipped.add(item);
     }
 
     public void addToInventory(Loot item){
@@ -86,6 +91,18 @@ public class Player implements Fightable{
 
     public int getEquipped(){
         return this.mEquipped.size();
+    }
+
+    public ArrayList<Loot> getEquippedArray(){
+        return this.mEquipped;
+    }
+
+    public ArrayList<Loot> getInventoryArray(){
+        return this.mInventory;
+    }
+
+    public ArrayList<Skill> getSkillsArray(){
+        return this.mSkillsKnown;
     }
 
     public int getLevel(){
@@ -184,10 +201,19 @@ public class Player implements Fightable{
         this.setHealth(100);
         this.setMana((100));
         this.mActive = true;
+        this.mFocus = 1;
     }
 
     public int getBaseDamage() {
         return this.mBaseDamage;
+    }
+
+    public int getFocus() {
+        return this.mFocus;
+    }
+
+    public void incFocus(int value) {
+        this.mFocus += value;
     }
 
     public void setBaseDamage(int value) {

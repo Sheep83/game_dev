@@ -104,6 +104,7 @@ public class ActivityCombat extends AppCompatActivity {
                     mNullDice.setSides(mLootEnchants.size());
                     String lootEnchant = mLootEnchants.get(mNullDice.roll());
                     Loot loot = new Loot(lootType, lootEnchant, 1);
+                    loot.setFocus(2);
                     // push loot to extras here
                     String looted = new Gson().toJson(loot);
                     String player = new Gson().toJson(mPlayer);

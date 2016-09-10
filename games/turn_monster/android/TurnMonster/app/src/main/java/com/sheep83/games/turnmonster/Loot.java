@@ -9,18 +9,13 @@ public class Loot {
 
     private String mName, mEnchant, mType;
     private ArrayList<String> mNameOptions, mTypeOptions,  mEnchantOptions;
-    private int mLevel;
+    private int mLevel, mFocus;
 
     public Loot (String type, String enchant, int level) {
-//        mName = name;
         mType = type;
         mEnchant = enchant;
         mLevel = level;
 
-    }
-
-    public String getName() {
-        return this.mName;
     }
 
     public String getType() {
@@ -33,5 +28,13 @@ public class Loot {
 
     public int getLevel() {
         return this.mLevel;
+    }
+
+    public int getFocus() {
+        return this.mFocus;
+    }
+
+    public void setFocus(int value) {
+        this.mFocus = value;
     }
 }

@@ -59,6 +59,18 @@
             android:parentActivityName=".ActivityCombat">
         </activity>
 
+        <activity
+            android:name=".ActivityCharacterView"
+            android:label="@string/app_name"
+            android:parentActivityName=".Game">
+        </activity>
+
+        <activity
+            android:name=".ActivityInventoryView"
+            android:label="@string/app_name"
+            android:parentActivityName=".ActivityCharacterView">
+        </activity>
+
     </application>
 
 

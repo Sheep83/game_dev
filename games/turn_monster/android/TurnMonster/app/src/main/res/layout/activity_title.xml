@@ -21,6 +21,12 @@
 
     <Button
         android:layout_width="wrap_content"
+        android:id="@+id/character_button"
+        android:layout_height="wrap_content"
+        android:text="@string/character_button" />
+
+    <Button
+        android:layout_width="wrap_content"
         android:id="@+id/clear_button"
         android:layout_height="wrap_content"
         android:text="@string/clear_button" />

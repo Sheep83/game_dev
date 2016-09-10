@@ -3,49 +3,48 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let Battle Commence!"
-        android:id="@+id/init_header"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Player Name"
-        android:id="@+id/player_text"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Player Level"
-        android:id="@+id/player_level"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Monster Name"
-
-        android:id="@+id/monster_text"/>
-
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:hint="Monster Type"
-    android:id="@+id/monster_type"/>
+        android:text="Inventory"
+        android:id="@+id/character_button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Game!"
-        android:id="@+id/start_button"
-        />
+        android:text="Home"
+        android:id="@+id/home_button" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Character"
-        android:id="@+id/character_button"
-        />
+        android:text="Equipped"
+        android:id="@+id/equipped_header"/>
+
+    <ListView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/equipped_list_view"
+        android:divider="@drawable/line"
+        android:dividerHeight="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:id="@+id/inventory_header"/>
+
+    <ListView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inventory_list_view"
+        android:divider="@drawable/line"
+        android:dividerHeight="10dp" />
+
+
 
 </LinearLayout>
