@@ -3,27 +3,127 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Character Name: "
-        android:id="@+id/name_header"/>
+        android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/player_name"/>
+        android:text="Name: "
+        android:id="@+id/name_header"
+        android:paddingBottom="10dp" />
+
+    <TextView
+        android:layout_toRightOf="@+id/name_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_name"
+        android:paddingBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Character Level: "
-        android:id="@+id/level_header"/>
+        android:text="Level: "
+        android:id="@+id/level_header"
+        android:layout_below="@+id/name_header"
+        android:paddingBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/player_level"/>
+        android:id="@+id/player_level"
+        android:layout_toRightOf="@+id/level_header"
+        android:layout_below="@+id/player_name"
+        android:paddingBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health: "
+            android:id="@+id/health_header"
+            android:paddingBottom="10dp"
+            android:layout_below="@+id/level_header" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/player_health"
+            android:layout_toRightOf="@+id/health_header"
+            android:layout_below="@+id/player_level" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Intellect: "
+            android:id="@+id/int_header"
+            android:layout_below="@+id/level_header"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/player_health" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/player_int"
+            android:layout_toRightOf="@+id/int_header"
+            android:layout_below="@+id/level_header" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mana: "
+            android:id="@+id/mana_header"
+            android:layout_below="@+id/level_header"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/player_int" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/player_mana"
+            android:layout_toRightOf="@+id/mana_header"
+            android:layout_below="@+id/level_header" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:id="@+id/inventory_button"
+            android:layout_below="@+id/health_header"
+            android:layout_toRightOf="@+id/home_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:id="@+id/home_button"
+            android:layout_below="@+id/health_header" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/equipped_header"
+        android:text="Equipped Items"
+        android:textStyle="bold"
+        android:textSize="16dp" />
+
+    <ListView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/equip_list_view"
+        android:divider="#222121"
+        android:dividerHeight="1px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/skills_header"
+        android:text="Known Skills"
+        android:textStyle="bold"
+        android:textSize="16dp" />
 
     <ListView
         android:layout_marginLeft="10dp"
@@ -31,19 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/skill_list_view"
-        android:divider="@drawable/line"
-        android:dividerHeight="10dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Inventory"
-        android:id="@+id/inventory_button" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:id="@+id/home_button" />
+        android:divider="#222121"
+        android:dividerHeight="1px" />
 
 </LinearLayout>

@@ -1,9 +1,11 @@
 package com.sheep83.games.turnmonster;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ActivityMonsterTurn extends AppCompatActivity {
 
-    TextView mCommentary, mMonsterHealth, mPlayerHealth;
+    TextView mCommentary, mPlayerHealth;
     Button mContinue;
     Player mPlayer;
     Monster mMonster;
@@ -25,9 +27,10 @@ public class ActivityMonsterTurn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_combat_monster);
         mCommentary = (TextView) findViewById(R.id.commentary);
         mPlayerHealth = (TextView) findViewById(R.id.player_health);
-        mMonsterHealth = (TextView) findViewById(R.id.monster_health);
+        mContinue = (Button) findViewById(R.id.proceed);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         Gson gson = new Gson();
@@ -44,22 +47,35 @@ public class ActivityMonsterTurn extends AppCompatActivity {
         mGamedice = gson.fromJson(gamedicejson, Dice.class);
         mNullDice = gson.fromJson(nulldicejson, Dice.class);
         mNullDice.setSides(mMonster.getBaseDamage());
-        mMonster.meleeAttack(mPlayer, mNullDice.roll());
+        int damage = mNullDice.roll();
+        mMonster.meleeAttack(mPlayer, damage);
+        mCommentary.setText(mMonster.getName() + " attacks " + mPlayer.getName() + " and deals " + damage + " damage");
+        mPlayerHealth.setText("Player Health: " + mPlayer.getHealth());
         if (mPlayer.deadCheck()) {
             mPlayer.setHealth(0);
         }
         mPlayer.setActive(true);
         mMonster.setActive(false);
-        String newplayerjson = new Gson().toJson(mPlayer);
-        String newmonsterjson = new Gson().toJson(mMonster);
-        String newgamedicejson = new Gson().toJson(mGamedice);
-        String newnulldicejson = new Gson().toJson(mNullDice);
-        Intent newIntent = new Intent(ActivityMonsterTurn.this, ActivityCombat.class);
-        newIntent.putExtra("player", newplayerjson);
-        newIntent.putExtra("monster", newmonsterjson);
-        newIntent.putExtra("gamedice", newgamedicejson);
-        newIntent.putExtra("nulldice", newnulldicejson);
-        startActivity(newIntent);
+
+        mContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Log.d("Game:", "Continuing...");
+                String newplayerjson = new Gson().toJson(mPlayer);
+                String newmonsterjson = new Gson().toJson(mMonster);
+                String newgamedicejson = new Gson().toJson(mGamedice);
+                String newnulldicejson = new Gson().toJson(mNullDice);
+                Intent newIntent = new Intent(ActivityMonsterTurn.this, ActivityCombat.class);
+                newIntent.putExtra("player", newplayerjson);
+                newIntent.putExtra("monster", newmonsterjson);
+                newIntent.putExtra("gamedice", newgamedicejson);
+                newIntent.putExtra("nulldice", newnulldicejson);
+                startActivity(newIntent);
+            }
+        });
+
+
 
     }
 }

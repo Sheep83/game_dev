@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -36,7 +37,7 @@ public class ActivityInventoryView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        extras = intent.getExtras();
         if (extras != null) {
             Gson gson = new Gson();
             String playerjson = extras.getString("player");
@@ -50,16 +51,11 @@ public class ActivityInventoryView extends AppCompatActivity {
             Intent newIntent = new Intent(ActivityInventoryView.this, ActivityNewPlayer.class);
             startActivity(newIntent);
         }
-        mEquipped = mPlayer.getEquippedArray();
         mInventory = mPlayer.getInventoryArray();
         mHome = (Button) findViewById(R.id.home_button);
         mCharacterView = (Button) findViewById(R.id.character_button);
-        mEquippedHeader = (TextView) findViewById(R.id.equipped_header);
         mInventoryHeader = (TextView) findViewById(R.id.inventory_header);
-        mEquipListView = (ListView)findViewById(R.id.equipped_list_view);
         mInvListView = (ListView)findViewById(R.id.inventory_list_view);
-        ArrayAdapter<Loot> equippedarrayAdapter = new LootArrayListAdapter(this, android.R.layout.simple_list_item_1, mEquipped);
-        mEquipListView.setAdapter(equippedarrayAdapter);
         ArrayAdapter<Loot> inventoryarrayAdapter = new LootArrayListAdapter(this, android.R.layout.simple_list_item_1, mInventory);
         mInvListView.setAdapter(inventoryarrayAdapter);
 
@@ -105,14 +101,34 @@ public class ActivityInventoryView extends AppCompatActivity {
             }
 
         });
-//        mLevelheader = (TextView) findViewById(R.id.level_header);
-//        mPlayerLevel = (TextView) findViewById(R.id.player_level);
-//        mPlayerName.setText(mPlayer.getName());
-//        mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
-//        mViewInventory = (Button) findViewById(R.id.inventory_button);
-//        mHome = (Button) findViewById(R.id.home_button);
-//        mKnownSkills = mPlayer.getSkillsArray();
 
+        mInvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                Loot selectedItem = mPlayer.getInventoryArray().get(position);
+                Toast.makeText(getApplicationContext(), mPlayer.getName() + " selects " + selectedItem.getType() + " " + selectedItem.getEnchant(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityInventoryView.this, ActivityItemView.class);
+                String playerjson = new Gson().toJson(mPlayer);
+                String itemjson = new Gson().toJson(selectedItem);
+                String indexjson = new Gson().toJson(position);
+                intent.putExtra("index", indexjson);
+                intent.putExtra("player", playerjson);
+                intent.putExtra("item", itemjson);
+                startActivity(intent);
+            }
+        });
+
+//        mEquipListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+//                Loot selectedItem = mPlayer.getEquippedArray().get(position);
+//                Toast.makeText(getApplicationContext(), mPlayer.getName() + " selects " + selectedItem.getType() + " " + selectedItem.getEnchant(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(ActivityInventoryView.this, ActivityItemView.class);
+//                String playerjson = new Gson().toJson(mPlayer);
+//                String itemjson = new Gson().toJson(selectedItem);
+//                intent.putExtra("player", playerjson);
+//                intent.putExtra("item", itemjson);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 }

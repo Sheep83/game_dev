@@ -78,10 +78,10 @@ public class ActivityLoot extends AppCompatActivity {
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent = new Intent(ActivityLoot.this, Game.class);
+                mPlayer.resetStats();
                 mPlayer.equipItem(mLoot);
                 Log.d("Game:", "Item Equipped!");
                 //reset health and mana here
-                mPlayer.resetStats();
                 mPlayer.checkLevel();
                 ArrayList<Player> mPlayers = new ArrayList<>();
                 mPlayers.add(mPlayer);

@@ -3,32 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inventory"
-        android:id="@+id/character_button" />
+        android:text="Character"
+        android:id="@+id/character_button"
+        android:layout_toRightOf="@+id/home_button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Home"
         android:id="@+id/home_button" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Equipped"
-        android:id="@+id/equipped_header"/>
-
-    <ListView
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/equipped_list_view"
-        android:divider="@drawable/line"
-        android:dividerHeight="10dp" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inventory_list_view"
-        android:divider="@drawable/line"
-        android:dividerHeight="10dp" />
+        android:divider="#222121"
+        android:dividerHeight="1px" />
 
 
 

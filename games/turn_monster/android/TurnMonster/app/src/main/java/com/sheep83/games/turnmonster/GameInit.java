@@ -46,7 +46,7 @@ public class GameInit extends AppCompatActivity{
         mPlayer = gson.fromJson(json, Player.class);
         if(mPlayer.getEquipped() > 0){
             for(Loot item : mPlayer.getEquippedArray()){
-                mPlayer.incFocus(item.getFocus());
+//                mPlayer.incFocus(item.getFocus());
             }
         }
         monster = new Monster(mMonsterName, mMonsterType, 100, 1);

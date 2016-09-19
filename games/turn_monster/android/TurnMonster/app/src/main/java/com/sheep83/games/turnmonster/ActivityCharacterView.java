@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,7 +31,7 @@ public class ActivityCharacterView extends AppCompatActivity {
     Player mPlayer;
     Bundle extras;
     ListView mSkillListView, mEquipListView, mInvListView;
-    TextView mNameHeader, mPlayerName, mLevelheader, mPlayerLevel;
+    TextView mNameHeader, mPlayerName, mLevelheader, mPlayerLevel, mHealthHeader, mHealth, mIntHeader, mInt, mManaHeader, mMana;
     Button mViewInventory, mHome;
 
     @Override
@@ -56,15 +58,27 @@ public class ActivityCharacterView extends AppCompatActivity {
         mPlayerName = (TextView) findViewById(R.id.player_name);
         mLevelheader = (TextView) findViewById(R.id.level_header);
         mPlayerLevel = (TextView) findViewById(R.id.player_level);
+        mHealthHeader = (TextView) findViewById(R.id.health_header);
+        mHealth = (TextView) findViewById(R.id.player_health);
+        mIntHeader = (TextView) findViewById(R.id.int_header);
+        mInt = (TextView) findViewById(R.id.player_int);
+        mManaHeader = (TextView) findViewById(R.id.mana_header);
+        mMana = (TextView) findViewById(R.id.player_mana);
         mPlayerName.setText(mPlayer.getName());
         mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
+        mHealth.setText(String.valueOf(mPlayer.getHealth()));
+        mInt.setText(String.valueOf(mPlayer.getIntellect()));
+        mMana.setText(String.valueOf(mPlayer.getMana()));
         mViewInventory = (Button) findViewById(R.id.inventory_button);
         mHome = (Button) findViewById(R.id.home_button);
+        mEquipped = mPlayer.getEquippedArray();
         mKnownSkills = mPlayer.getSkillsArray();
+        mEquipListView = (ListView)findViewById(R.id.equip_list_view);
         mSkillListView = (ListView)findViewById(R.id.skill_list_view);
-        ArrayAdapter<Skill> arrayAdapter = new SkillArrayListAdapter(this, android.R.layout.simple_list_item_1, mKnownSkills);
-        mSkillListView.setAdapter(arrayAdapter);
-
+        ArrayAdapter<Skill> skillarrayAdapter = new SkillArrayListAdapter(this, android.R.layout.simple_list_item_1, mKnownSkills);
+        ArrayAdapter<Loot> equiparrayAdapter = new LootArrayListAdapter(this, android.R.layout.simple_list_item_1, mEquipped);
+        mEquipListView.setAdapter(equiparrayAdapter);
+        mSkillListView.setAdapter(skillarrayAdapter);
         mHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +106,21 @@ public class ActivityCharacterView extends AppCompatActivity {
                 String newplayerarrayjson = new Gson().toJson(mPlayers);
                 intent.putExtra("player", newplayerarrayjson);
                 SavedTaskPreferences.setStoredPlayer(context, newplayerarrayjson);
+                startActivity(intent);
+            }
+        });
+
+        mEquipListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                Loot selectedItem = mPlayer.getEquippedArray().get(position);
+                Toast.makeText(getApplicationContext(), selectedItem.getName() + " selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityCharacterView.this, ActivityItemView.class);
+                String playerjson = new Gson().toJson(mPlayer);
+                String itemjson = new Gson().toJson(selectedItem);
+                String indexjson = new Gson().toJson(position);
+                intent.putExtra("player", playerjson);
+                intent.putExtra("item", itemjson);
+                intent.putExtra("index", indexjson);
                 startActivity(intent);
             }
         });

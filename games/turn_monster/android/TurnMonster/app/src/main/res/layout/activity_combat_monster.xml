@@ -8,15 +8,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/commentary"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/player_level"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_health"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Evocation"
+        android:text="Continue"
         android:id="@+id/proceed"
         />
 

@@ -45,6 +45,7 @@ public class ActivityGameOver extends AppCompatActivity {
         mMonster = gson.fromJson(monster, Monster.class);
         mPlayerText.setText(String.valueOf(mPlayer.getName() + mPlayer.getHealth()));
         mMonsterText.setText(String.valueOf(mMonster.getName() + mMonster.getHealth()));
+
         mRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -9,7 +9,7 @@ public class Loot {
 
     private String mName, mEnchant, mType;
     private ArrayList<String> mNameOptions, mTypeOptions,  mEnchantOptions;
-    private int mLevel, mFocus;
+    private int mLevel, mIntellect, mStrength, mVitality;
 
     public Loot (String type, String enchant, int level) {
         mType = type;
@@ -30,11 +30,31 @@ public class Loot {
         return this.mLevel;
     }
 
-    public int getFocus() {
-        return this.mFocus;
+    public int getIntellect() {
+        return this.mIntellect;
     }
 
-    public void setFocus(int value) {
-        this.mFocus = value;
+    public void setIntellect(int value) {
+        this.mIntellect = value;
+    }
+
+    public int getStrength() {
+        return this.mStrength;
+    }
+
+    public void setStrength(int value) {
+        this.mStrength = value;
+    }
+
+    public int getVitality() {
+        return this.mVitality;
+    }
+
+    public String getName() {
+        return String.valueOf(this.getType()) + String.valueOf(this.getEnchant());
+    }
+
+    public void setVitality(int value) {
+        this.mVitality = value;
     }
 }

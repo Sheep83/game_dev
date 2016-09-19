@@ -103,8 +103,35 @@ public class ActivityCombat extends AppCompatActivity {
                     String lootType = mLootTypes.get(mNullDice.roll());
                     mNullDice.setSides(mLootEnchants.size());
                     String lootEnchant = mLootEnchants.get(mNullDice.roll());
-                    Loot loot = new Loot(lootType, lootEnchant, 1);
-                    loot.setFocus(2);
+                    int lootLevel = 0;
+                    int lootInt= 0;
+                    int lootVit = 0;
+                    int levelRoll = mGamedice.roll();
+                    if(levelRoll < 30){
+                        lootLevel = mPlayer.getLevel() - 1;
+                    }else if(levelRoll > 80)
+                    {
+                        lootLevel = mPlayer.getLevel() + 1;
+                    }else
+                    {
+                        lootLevel = mPlayer.getLevel();
+                    }
+                    // roll for loot stats here - vitality and int - based on loot level
+                    if(mGamedice.roll() < 20){
+                        lootInt = lootLevel -1;
+                    }else{
+                        lootInt = lootLevel;
+                    }
+                    if(mGamedice.roll() < 20){
+                        lootVit = lootLevel -1;
+                    }else{
+                        lootVit = lootLevel;
+                    }
+
+                    Loot loot = new Loot(lootType, lootEnchant, lootLevel);
+                    loot.setVitality(lootVit);
+                    loot.setIntellect(lootInt);
+                    Log.d("Loot ", "" + loot);
                     // push loot to extras here
                     String looted = new Gson().toJson(loot);
                     String player = new Gson().toJson(mPlayer);

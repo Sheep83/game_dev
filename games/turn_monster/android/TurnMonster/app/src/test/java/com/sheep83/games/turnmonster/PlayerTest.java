@@ -133,4 +133,16 @@ public class PlayerTest {
         assertEquals(1, player.getInventorySize());
     }
 
+    @Test
+    public void canIncStatsViaEquipment()
+    {
+        loot.setIntellect(2);
+        loot.setVitality(3);
+        player.equipItem(loot);
+        assertEquals(3, player.getIntellect());
+        assertEquals(130, player.getHealth());
+        assertEquals(120, player.getMana());
+
+    }
+
 }

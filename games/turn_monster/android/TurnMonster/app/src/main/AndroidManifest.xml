@@ -71,6 +71,12 @@
             android:parentActivityName=".ActivityCharacterView">
         </activity>
 
+        <activity
+            android:name=".ActivityItemView"
+            android:label="@string/app_name"
+            android:parentActivityName=".ActivityInventoryView">
+        </activity>
+
     </application>
 
 

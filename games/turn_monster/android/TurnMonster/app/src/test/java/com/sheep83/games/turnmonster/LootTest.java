@@ -19,13 +19,7 @@ public class LootTest {
     }
 
     @Test
-    public void getNameTest()
-    {
-        assertEquals("testname", loot.getName());
-    }
-
-    @Test
-    public void getTyoeTest()
+    public void getTypeTest()
     {
         assertEquals("testtype", loot.getType());
     }
@@ -41,6 +35,29 @@ public class LootTest {
     {
         assertEquals(1, loot.getLevel());
     }
+
+    @Test
+    public void getIntellectTest()
+    {
+        loot.setIntellect(5);
+        assertEquals(5, loot.getIntellect());
+    }
+
+    @Test
+    public void getStrengthTest()
+    {
+        loot.setStrength(4);
+        assertEquals(4, loot.getStrength());
+    }
+
+    @Test
+    public void getVitalityTest()
+    {
+        loot.setVitality(3);
+        assertEquals(3, loot.getVitality());
+    }
+
+
 
 
 

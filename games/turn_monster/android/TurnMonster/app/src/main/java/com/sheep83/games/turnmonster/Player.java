@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Player implements Fightable{
 
     private String mName;
-    private int mHealth, mXp, mMana, mLevel, mTurnCount, mBaseDamage, mHitMod,mDefMod, mDmgMod, mMaxHealth, mHealthMod, mFocus;
+    private int mHealth, mEffHealth, mXp, mMana, mEffMana,  mLevel, mTurnCount, mBaseDamage, mHitMod,mDefMod, mDmgMod, mMaxHealth, mHealthMod, mIntellect, mEffInt;
     private ArrayList<Loot> mInventory, mEquipped;
     private ArrayList<Skill> mSkillTree, mSkillsKnown;
     private boolean mActive;
@@ -33,7 +33,7 @@ public class Player implements Fightable{
         mDefMod = 1;
         mDmgMod = 1;
         mHealthMod = 1;
-        mFocus = 1;
+        mIntellect = 1;
         mMaxHealth = mHealth;
         mActive = true;
         mBaseDamage = 40;
@@ -44,7 +44,9 @@ public class Player implements Fightable{
             Log.d("Player attacking with ", skill.getName());
             this.setBaseDamage(skill.getDamage());
             dice.setSides(this.getBaseDamage());
-            target.decHealth(dice.roll());
+            int damage = dice.roll();
+            this.setBaseDamage(damage);
+            target.decHealth(damage);
             this.decMana(skill.getManaCost());
         }else
         {
@@ -55,6 +57,7 @@ public class Player implements Fightable{
 
     public void equipItem(Loot item){
         this.mEquipped.add(item);
+        this.calcStats();
     }
 
     public void addToInventory(Loot item){
@@ -112,7 +115,6 @@ public class Player implements Fightable{
     public int getTurnCount(){
         return this.mTurnCount;
     }
-
 
     public int getMana(){
         return this.mMana;
@@ -172,7 +174,7 @@ public class Player implements Fightable{
     }
 
     public boolean rollForLoot(Dice dice){
-        if (dice.roll() > 30){
+        if (dice.roll() > 50){
             return true;
         }else
         {
@@ -201,19 +203,19 @@ public class Player implements Fightable{
         this.setHealth(100);
         this.setMana((100));
         this.mActive = true;
-        this.mFocus = 1;
+        this.mIntellect = 1;
     }
 
     public int getBaseDamage() {
         return this.mBaseDamage;
     }
 
-    public int getFocus() {
-        return this.mFocus;
+    public int getIntellect() {
+        return this.mIntellect;
     }
 
-    public void incFocus(int value) {
-        this.mFocus += value;
+    public void incIntellect(int value) {
+        this.mIntellect += value;
     }
 
     public void setBaseDamage(int value) {
@@ -234,6 +236,30 @@ public class Player implements Fightable{
         }
     }
 
+    public void calcStats(){
+        int healthMod = 0;
+        int manaMod = 0;
+        int intMod = 0;
+        if(this.getEquipped() > 0){
+            for (Loot loot : this.getEquippedArray()){
+                healthMod += (loot.getVitality() * 10);
+                manaMod += (loot.getIntellect() * 10);
+                intMod += loot.getIntellect();
+            }
+            this.incHealth(healthMod);
+            this.incIntellect(intMod);
+            this.incMana(manaMod);
+            this.mEffHealth = this.getHealth();
+            this.mEffInt = this.getIntellect();
+            this.mEffMana = this.getMana();
+        }
+    }
+
+    public void equipFromInventory(Loot item, int index){
+        this.equipItem(item);
+        this.mInventory.remove(index);
+    }
+
     public boolean manaCheck(Skill skill){
         if (this.getMana() > skill.getManaCost()){
             return true;
@@ -243,14 +269,6 @@ public class Player implements Fightable{
             return false;
         }
     }
-
-    //    public void savePlayer(){
-//        //method to save player object to sharedprefs here
-//    }
-//
-//    public void loadPlayer(){
-//        //method to load player object from sharedprefs here
-//    }
 
 
 }
