@@ -11,22 +11,26 @@ import static org.junit.Assert.assertEquals;
 public class LootTest {
     Player player;
     Loot loot;
+    Dice dice;
 
     @Before
     public void before(){
+        dice = new Dice(100);
         player = new Player("testplayer");
-        loot = new Loot("testtype", "testenchant", 1);
+        loot = player.rollForLoot(dice);
     }
 
     @Test
     public void getTypeTest()
     {
+        loot.setType("testtype");
         assertEquals("testtype", loot.getType());
     }
 
     @Test
     public void getEnchantTest()
     {
+        loot.setEnchant("testenchant");
         assertEquals("testenchant", loot.getEnchant());
     }
 
@@ -55,6 +59,20 @@ public class LootTest {
     {
         loot.setVitality(3);
         assertEquals(3, loot.getVitality());
+    }
+
+    @Test
+    public void getEnumTypeTest()
+    {
+        loot.setEnumType(Loot.Slot.ARMOUR);
+        assertEquals(Loot.Slot.ARMOUR, loot.getEnumType());
+    }
+
+    @Test
+    public void getEnumRarityTest()
+    {
+        loot.setEnumRarity(Loot.Rarity.EPIC);
+        assertEquals(Loot.Rarity.EPIC, loot.getEnumRarity());
     }
 
 

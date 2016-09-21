@@ -32,7 +32,7 @@ public class ActivityCharacterView extends AppCompatActivity {
     Bundle extras;
     ListView mSkillListView, mEquipListView, mInvListView;
     TextView mNameHeader, mPlayerName, mLevelheader, mPlayerLevel, mHealthHeader, mHealth, mIntHeader, mInt, mManaHeader, mMana;
-    Button mViewInventory, mHome;
+    Button mViewInventory, mHome, mHomeButton, mCharacterView, mEquipButton, mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class ActivityCharacterView extends AppCompatActivity {
         ArrayAdapter<Loot> equiparrayAdapter = new LootArrayListAdapter(this, android.R.layout.simple_list_item_1, mEquipped);
         mEquipListView.setAdapter(equiparrayAdapter);
         mSkillListView.setAdapter(skillarrayAdapter);
+
         mHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,16 +113,73 @@ public class ActivityCharacterView extends AppCompatActivity {
 
         mEquipListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                setContentView(R.layout.activity_item_view);
+                mNameHeader = (TextView) findViewById(R.id.name_header);
+                TextView mItemName = (TextView) findViewById(R.id.item_name);
+                mLevelheader = (TextView) findViewById(R.id.level_header);
+                TextView mItemLevel = (TextView) findViewById(R.id.item_level);
+                mIntHeader = (TextView) findViewById(R.id.int_header);
+                mInt = (TextView) findViewById(R.id.item_intellect);
+                TextView mVitHeader = (TextView) findViewById(R.id.vit_header);
+                TextView mVit = (TextView) findViewById(R.id.item_vitality);
+                mViewInventory = (Button) findViewById(R.id.inventory_button);
+                mCharacterView = (Button) findViewById(R.id.character_button);
+                mEquipButton = (Button) findViewById(R.id.equip_item);
+//                mHomeButton = (Button) findViewById(R.id.home_button);
+                mDeleteButton = (Button) findViewById(R.id.delete_button);
+                mDeleteButton.setVisibility(View.GONE);
+                mEquipButton.setVisibility(View.GONE);
+//                mHomeButton.setVisibility(View.GONE);
                 Loot selectedItem = mPlayer.getEquippedArray().get(position);
+                mItemName.setText(String.valueOf(selectedItem.getName()));
+                mItemLevel.setText(String.valueOf(selectedItem.getLevel()));
+                mInt.setText(String.valueOf(selectedItem.getIntellect()));
+                mVit.setText(String.valueOf(selectedItem.getVitality()));
                 Toast.makeText(getApplicationContext(), selectedItem.getName() + " selected", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ActivityCharacterView.this, ActivityItemView.class);
-                String playerjson = new Gson().toJson(mPlayer);
-                String itemjson = new Gson().toJson(selectedItem);
-                String indexjson = new Gson().toJson(position);
-                intent.putExtra("player", playerjson);
-                intent.putExtra("item", itemjson);
-                intent.putExtra("index", indexjson);
-                startActivity(intent);
+
+                mViewInventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Context context = view.getContext();
+                        Intent intent = new Intent(ActivityCharacterView.this, ActivityInventoryView.class);
+                        Log.d("Game:", "Inventory button pressed");
+                        ArrayList<Player> mPlayers = new ArrayList<>();
+                        mPlayers.add(mPlayer);
+                        //save player here
+                        String newplayerarrayjson = new Gson().toJson(mPlayers);
+                        intent.putExtra("player", newplayerarrayjson);
+                        SavedTaskPreferences.setStoredPlayer(context, newplayerarrayjson);
+                        startActivity(intent);
+                    }
+                });
+
+                mCharacterView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Context context = view.getContext();
+                        String json_saved = SavedTaskPreferences.getStoredPlayer(context);
+                        if (json_saved == null) {
+                            Intent intent = new Intent(ActivityCharacterView.this, ActivityCharacterView.class);
+                            Toast.makeText(ActivityCharacterView.this, R.string.back_to_character,
+                                    Toast.LENGTH_SHORT).show();
+                            Log.d("Game:", "Returning to character view");
+                            startActivity(intent);
+                        } else {
+                            Gson gson = new Gson();
+                            Type objectType = new TypeToken<ArrayList<Player>>() {
+                            }.getType();
+                            ArrayList<Player> mPlayersArray = new ArrayList<Player>();
+                            mPlayersArray.add(mPlayer);
+                            Log.d("Saved Player : ", mPlayersArray.get(0).getName() + "");
+                            String playerjson = new Gson().toJson(mPlayersArray);
+                            Intent intent = new Intent(ActivityCharacterView.this, ActivityCharacterView.class);
+                            intent.putExtra("player", playerjson);
+                            Log.d("Game:", "Character View Button Clicked!");
+                            startActivity(intent);
+                        }
+                    }
+
+                });
             }
         });
 

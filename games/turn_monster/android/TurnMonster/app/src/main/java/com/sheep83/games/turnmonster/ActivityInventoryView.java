@@ -117,18 +117,5 @@ public class ActivityInventoryView extends AppCompatActivity {
             }
         });
 
-//        mEquipListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-//                Loot selectedItem = mPlayer.getEquippedArray().get(position);
-//                Toast.makeText(getApplicationContext(), mPlayer.getName() + " selects " + selectedItem.getType() + " " + selectedItem.getEnchant(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(ActivityInventoryView.this, ActivityItemView.class);
-//                String playerjson = new Gson().toJson(mPlayer);
-//                String itemjson = new Gson().toJson(selectedItem);
-//                intent.putExtra("player", playerjson);
-//                intent.putExtra("item", itemjson);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 }

@@ -7,23 +7,71 @@ import java.util.ArrayList;
  */
 public class Loot {
 
+    public enum Slot {
+        WEAPON,
+        ARMOUR
+    };
+
+    public enum Rarity {
+        COMMON,
+        RARE,
+        EPIC
+    };
+
     private String mName, mEnchant, mType;
     private ArrayList<String> mNameOptions, mTypeOptions,  mEnchantOptions;
-    private int mLevel, mIntellect, mStrength, mVitality;
+    private int mLevel, mIntellect, mStrength, mVitality, mBaseDamage;
+    private Slot enumType;
+    private Rarity mEnumRarity;
 
-    public Loot (String type, String enchant, int level) {
-        mType = type;
-        mEnchant = enchant;
+    public Loot (Slot slot, Rarity rarity, Integer level) {
+//        mType = type;
+//        mEnchant = enchant;
+//        mIntellect = 0;
+//        mVitality = 0;
+        enumType = slot;
+        mEnumRarity = rarity;
         mLevel = level;
-
     }
 
     public String getType() {
         return this.mType;
     }
 
+    public void setType(String type) {
+        this.mType = type;
+    }
+
+    public Slot getEnumType() {
+        return this.enumType;
+    }
+
+    public void setEnumType(Slot type) {
+        this.enumType = type;
+    }
+
+    public Rarity getEnumRarity() {
+        return this.mEnumRarity;
+    }
+
+    public void setEnumRarity(Rarity rarity) {
+        this.mEnumRarity = rarity;
+    }
+
+    public int getBaseDamage() {
+        return this.mBaseDamage;
+    }
+
+    public void setBaseDamage(int value) {
+        this.mBaseDamage = value;
+    }
+
     public String getEnchant() {
         return this.mEnchant;
+    }
+
+    public void setEnchant(String enchant) {
+        this.mEnchant = enchant;
     }
 
     public int getLevel() {
@@ -51,7 +99,7 @@ public class Loot {
     }
 
     public String getName() {
-        return String.valueOf(this.getType()) + String.valueOf(this.getEnchant());
+        return String.valueOf(this.getType()) + " of " + String.valueOf(this.getEnchant());
     }
 
     public void setVitality(int value) {

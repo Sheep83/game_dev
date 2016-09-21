@@ -17,9 +17,11 @@ import java.util.ArrayList;
  */
 public class ActivityCombat extends AppCompatActivity {
 
-    ArrayList<String> mLootTypes = new ArrayList<>();
+    ArrayList<String> mWeaponTypes = new ArrayList<>();
+    ArrayList<String> mArmourTypes = new ArrayList<>();
     ArrayList<String> mLootEnchants = new ArrayList<>();
     Player mPlayer;
+    Loot mLoot;
     Monster mMonster;
     Dice mNullDice, mGamedice;
     Bundle extras;
@@ -87,60 +89,21 @@ public class ActivityCombat extends AppCompatActivity {
 
         if(mPlayer.deadCheck() || mMonster.deadCheck()){
             if(mMonster.deadCheck()){
-                mPlayer.incXp(100);
-                // check for level up here
-                if(mPlayer.rollForLoot(mGamedice)){
-                    // create random loot item here
-                    mLootTypes.add("Sword");
-                    mLootTypes.add("Staff");
-                    mLootTypes.add("Dagger");
-                    mLootTypes.add("Axe");
-                    mLootTypes.add("Hammer");
-                    mLootEnchants.add("Fire");
-                    mLootEnchants.add("Ice");
-                    mLootEnchants.add("Arcane");
-                    mNullDice.setSides(mLootTypes.size());
-                    String lootType = mLootTypes.get(mNullDice.roll());
-                    mNullDice.setSides(mLootEnchants.size());
-                    String lootEnchant = mLootEnchants.get(mNullDice.roll());
-                    int lootLevel = 0;
-                    int lootInt= 0;
-                    int lootVit = 0;
-                    int levelRoll = mGamedice.roll();
-                    if(levelRoll < 30){
-                        lootLevel = mPlayer.getLevel() - 1;
-                    }else if(levelRoll > 80)
-                    {
-                        lootLevel = mPlayer.getLevel() + 1;
-                    }else
-                    {
-                        lootLevel = mPlayer.getLevel();
-                    }
-                    // roll for loot stats here - vitality and int - based on loot level
-                    if(mGamedice.roll() < 20){
-                        lootInt = lootLevel -1;
-                    }else{
-                        lootInt = lootLevel;
-                    }
-                    if(mGamedice.roll() < 20){
-                        lootVit = lootLevel -1;
-                    }else{
-                        lootVit = lootLevel;
-                    }
-
-                    Loot loot = new Loot(lootType, lootEnchant, lootLevel);
-                    loot.setVitality(lootVit);
-                    loot.setIntellect(lootInt);
-                    Log.d("Loot ", "" + loot);
-                    // push loot to extras here
-                    String looted = new Gson().toJson(loot);
-                    String player = new Gson().toJson(mPlayer);
-                    Intent lootIntent = new Intent(ActivityCombat.this, ActivityLoot.class);
-                    lootIntent.putExtra("player", player);
-                    lootIntent.putExtra("looted", looted);
-                    startActivity(lootIntent);
+                mPlayer.incXp(60);
+                if(mPlayer.levelUpCheck()){
+                    mPlayer.incSkillPoints();
+                    mPlayer.checkLevel();
                 }
-            }else
+                mLoot = mPlayer.rollForLoot(mGamedice, mNullDice);
+                Log.d("Loot ", "" + mLoot);
+                String looted = new Gson().toJson(mLoot);
+                String player = new Gson().toJson(mPlayer);
+                Intent lootIntent = new Intent(ActivityCombat.this, ActivityLoot.class);
+                lootIntent.putExtra("player", player);
+                lootIntent.putExtra("looted", looted);
+                startActivity(lootIntent);
+            }
+            else
             {
                 String newplayerjson = new Gson().toJson(mPlayer);
                 String newmonsterjason = new Gson().toJson(mMonster);

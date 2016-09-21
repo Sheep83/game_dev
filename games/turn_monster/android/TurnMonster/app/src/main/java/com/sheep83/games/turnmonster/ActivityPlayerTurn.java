@@ -81,7 +81,7 @@ public class ActivityPlayerTurn extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), mPlayer.getName() + " uses " + selectedSkill.getName() + " on " + mMonster.getName() , Toast.LENGTH_SHORT).show();
 //                String json = new Gson().toJson(selectedTask);
                 mPlayer.attack(mMonster, selectedSkill, mNullDice);
-                mPlayer.incMana(5);
+//                mPlayer.incMana(10 + mPlayer.getManaMod());
                 if (mMonster.deadCheck())
                 {
                     mMonster.setHealth(0);

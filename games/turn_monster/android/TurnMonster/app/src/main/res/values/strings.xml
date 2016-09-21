@@ -11,8 +11,10 @@
     <string name="level">Level:</string>
     <string name="health">Health:</string>
     <string name="mana">Mana:</string>
+    <string name="type">Type:</string>
     <string name="intellect">Intellect:</string>
     <string name="vitality">Vitality:</string>
+    <string name="vs">VS</string>
     <string name="back_to_character">Returning to character view</string>
 
 

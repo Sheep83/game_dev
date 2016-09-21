@@ -12,44 +12,116 @@
         android:textStyle="bold"
         android:textSize="24dp"
         android:paddingBottom="10dp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:hint="Player Name"
-        android:id="@+id/player_text"/>
+        android:text="@string/name"
+        android:id="@+id/player_name_header"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:hint="Player Level"
-        android:id="@+id/player_level"/>
+        android:id="@+id/player_name"
+        android:layout_below="@+id/player_name_header" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:hint="Monster Name"
-
-        android:id="@+id/monster_text"/>
+        android:text="@string/health"
+        android:id="@+id/player_health_header"
+        android:layout_below="@+id/player_name" />
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:hint="Monster Type"
-    android:id="@+id/monster_type"/>
-
-    <Button
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Start Game!"
-        android:id="@+id/start_button"
-        />
+        android:id="@+id/player_health"
+        android:layout_below="@+id/player_health_header" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="View Character"
-        android:id="@+id/character_button"
-        />
+        android:text="@string/level"
+        android:id="@+id/player_level_header"
+        android:layout_below="@+id/player_health" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_level"
+        android:layout_below="@+id/player_level_header" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:text="@string/vs"
+            android:id="@+id/vs"
+            android:layout_toRightOf="@+id/player_name_header"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="50dp"
+            android:textStyle="bold|italic"
+            android:textColor="#2b3add" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/monster_name_header"
+        android:layout_toRightOf="@+id/vs" />
+
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/monster_name"
+        android:layout_toRightOf="@+id/vs"
+        android:layout_below="@+id/monster_name_header" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/type"
+        android:id="@+id/monster_type_header"
+        android:layout_toRightOf="@+id/vs"
+        android:layout_below="@+id/monster_name" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/monster_type"
+        android:layout_below="@+id/monster_type_header"
+        android:layout_toRightOf="@+id/vs" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/level"
+        android:id="@+id/monster_level_header"
+        android:layout_below="@+id/monster_type"
+        android:layout_toRightOf="@+id/vs" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/monster_level"
+        android:layout_below="@+id/monster_level_header"
+        android:layout_toRightOf="@+id/vs" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Game!"
+            android:id="@+id/start_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/player_health"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

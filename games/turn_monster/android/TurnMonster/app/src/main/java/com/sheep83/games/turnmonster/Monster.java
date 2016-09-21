@@ -8,17 +8,24 @@ import java.util.ArrayList;
 public class Monster implements Fightable{
 
     private String mName, mType;
-    private int mLevel, mHealth, mTurnCount, mBaseDamage;
+    private int mLevel, mMinLevel, mHealth, mMaxHealth, mTurnCount, mBaseDamage, mMaxDamage;
+    private double mHealthMod, mDmgMod;
     private boolean mActive;
 
-    public Monster(String name, String type, int health, int level) {
+    public Monster(String type, int health, int minlevel, double healthMod, double dmgMod) {
 
-        mName = name;
+//        mName = name;
         mType = type;
         mHealth = health;
-        mLevel = level;
+        mMinLevel = minlevel;
         mTurnCount = 0;
         mBaseDamage = 25;
+        mHealthMod = healthMod;
+        mDmgMod = dmgMod;
+    }
+
+    public void setName(String name){
+        this.mName = name;
     }
 
     public String getName(){
@@ -31,6 +38,26 @@ public class Monster implements Fightable{
 
     public int getHealth(){
         return this.mHealth;
+    }
+
+    public double getHealthMod(){
+        return this.mHealthMod;
+    }
+
+    public double getDmgMod(){
+        return this.mDmgMod;
+    }
+
+    public int getMaxHealth(){
+        return this.mMaxHealth;
+    }
+
+    public int getMinLevel(){
+        return this.mMinLevel;
+    }
+
+    public void setLevel(int level){
+        this.mLevel = level;
     }
 
     public int getLevel(){
@@ -73,9 +100,24 @@ public class Monster implements Fightable{
         return this.mActive;
     }
 
+    public void calcStats(){
+        this.mMaxHealth = (int)Math.ceil((this.getHealth() + this.getLevel()) * this.getHealthMod());
+        this.mMaxDamage = (int)Math.ceil((this.getBaseDamage() + this.getLevel()) * this.getDmgMod());
+        this.setHealth(this.getMaxHealth());
+        this.setBaseDamage(this.getMaxDamage());
+        }
+
     @Override
     public int getBaseDamage() {
         return this.mBaseDamage;
+    }
+
+    public int getMaxDamage() {
+        return this.mMaxDamage;
+    }
+
+    public void setBaseDamage(int value) {
+        this.mBaseDamage = value ;
     }
 
     public boolean deadCheck(){
