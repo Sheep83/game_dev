@@ -10,23 +10,47 @@
         android:text="Do you want to replace this equipped item : "
         android:textStyle="bold"
         android:textSize="16dp" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/equip_name"
         android:textSize="12dp" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_header"
+        android:text="@string/level"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/equip_level"
         android:textSize="12dp" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/int_header"
+        android:text="@string/intellect"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/equip_int"
         android:textSize="12dp" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vitality"
+        android:id="@+id/vit_header"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/equip_vit"
         android:textSize="12dp" />
@@ -34,26 +58,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inv_header"
-        android:text="With this item : "
+        android:text="With this item?"
         android:textStyle="bold"
         android:textSize="16dp" />
+
+
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inv_name"
         android:textSize="12dp" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inv_level_header"
+        android:text="@string/level"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inv_level"
         android:textSize="12dp" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inv_int_header"
+        android:text="@string/intellect"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inv_int"
         android:textSize="12dp" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inv_vit_header"
+        android:text="@string/vitality"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inv_vit"
         android:textSize="12dp" />

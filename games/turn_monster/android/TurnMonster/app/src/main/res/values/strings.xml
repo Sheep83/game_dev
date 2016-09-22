@@ -7,15 +7,29 @@
     <string name="no_mana">No Mana!</string>
     <string name="character_button">View Character</string>
     <string name="no_player_present">No saved player present. Redirecting to player creation</string>
-    <string name="name">Name:</string>
-    <string name="level">Level:</string>
-    <string name="health">Health:</string>
-    <string name="mana">Mana:</string>
-    <string name="type">Type:</string>
-    <string name="intellect">Intellect:</string>
-    <string name="vitality">Vitality:</string>
+    <string name="name">Name</string>
+    <string name="level">Level</string>
+    <string name="health">Health</string>
+    <string name="mana">Mana</string>
+    <string name="type">Type</string>
+    <string name="intellect">Intellect</string>
+    <string name="vitality">Vitality</string>
     <string name="vs">VS</string>
     <string name="back_to_character">Returning to character view</string>
+    <string name="proceed">Continue</string>
+    <string name="combat_title">Fight!</string>
+    <string name="damage">Damage</string>
+    <string name="game_win">You won!</string>
+    <string name="loot_header">You looted an item!</string>
+    <string name="no_loot_header">No loot found :-(</string>
+    <string name="level_up">Level Up!</string>
+
+
+
+
+
+
+
 
 
 

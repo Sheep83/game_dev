@@ -3,93 +3,151 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/combat_title"
+        android:id="@+id/combat_title"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold|italic"
+        android:textSize="45dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/player_name">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:id="@+id/player_name_header"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@id/player_name_header"
+                android:layout_width="130dp"
+                android:layout_height="35dp"
+                android:id="@+id/player_name"
+                android:textSize="20dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_below="@id/player_name"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/health"
+                android:id="@+id/player_health_header"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@id/player_health_header"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/player_health"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_below="@id/player_health"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/mana"
+                android:id="@+id/player_mana_header"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@id/player_mana_header"
+                android:layout_width="130dp"
+                android:layout_height="35dp"
+                android:id="@+id/player_mana"
+                android:textSize="20dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:id="@+id/monster_name_header"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@id/monster_name_header"
+                android:layout_width="130dp"
+                android:layout_height="35dp"
+                android:id="@+id/monster_name"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/health"
+                android:id="@+id/monster_health_header"
+                android:layout_below="@+id/monster_name"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@id/monster_health_header"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/monster_health"
+                android:layout_alignParentRight="true"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/type"
+                android:id="@+id/monster_type_header"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/monster_health"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_below="@+id/monster_type_header"
+                android:layout_width="130dp"
+                android:layout_height="35dp"
+                android:id="@+id/monster_type"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:textAlignment="center" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/proceed"
+                android:id="@+id/proceed"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/monster_name"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
     <TextView
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Player Name : "
-        android:id="@+id/player_name_header"/>
-
-    <TextView
-        android:layout_below="@id/player_name_header"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_name"/>
-
-    <TextView
-        android:layout_below="@id/player_name"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:text="Player Health : "
-        android:id="@+id/player_health_header"/>
-
-    <TextView
-        android:layout_below="@id/player_health_header"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_health"/>
-
-    <TextView
-        android:layout_below="@id/player_health"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:text="Player Mana : "
-        android:id="@+id/player_mana_header"/>
-
-    <TextView
-        android:layout_below="@id/player_mana_header"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_mana"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monster Name : "
-        android:id="@+id/monster_name_header"
-        android:layout_toRightOf="@id/player_name_header"/>
-
-    <TextView
-        android:layout_below="@id/monster_name_header"
-        android:layout_toRightOf="@id/player_name_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monster_name"/>
-
-    <TextView
-        android:layout_toRightOf="@id/player_health_header"
-        android:layout_below="@id/monster_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monster Type : "
-        android:id="@+id/monster_type_header"/>
-
-    <TextView
-        android:layout_toRightOf="@id/player_health"
-        android:layout_below="@id/monster_type_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monster_type" />
-
-    <TextView
-        android:layout_toRightOf="@id/player_mana_header"
-        android:layout_below="@id/monster_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monster Health : "
-        android:id="@+id/monster_health_header"/>
-
-    <TextView
-        android:layout_toRightOf="@id/player_mana"
-        android:layout_below="@id/monster_health_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monster_health"/>
-</RelativeLayout>
+        android:id="@+id/commentary"
+        android:textStyle="italic"
+        android:textSize="20dp" />
 
     <ListView
         android:layout_marginLeft="10dp"

@@ -4,33 +4,19 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/player_header"
-        android:text="Player: "/>
+        android:id="@+id/game_over_header"
+        android:text="You died :-("
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:textAlignment="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/player"/>
+        android:id="@+id/commentary"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monster_header"
-        android:text="Monster: "
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monster"
-        />
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/player_level"/>-->
 
     <Button
         android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package com.sheep83.games.turnmonster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class ActivityItemView extends AppCompatActivity {
     Loot mItem;
     Player mPlayer;
     Bundle extras;
-    TextView mNameHeader, mItemName, mInvName, mLevelheader, mItemLevel, mInvLevel,  mDamageHeader, mDamage, mIntHeader, mInt, mInvInt,  mVitHeader, mVit, mInvVit;
+    TextView mRarity, mInvNameHeader, mInvLevelHeader, mInvIntHeader, mInvVitHeader, mType, mNameHeader, mItemName, mInvName, mLevelheader, mItemLevel, mInvLevel,  mDamageHeader, mDamage, mIntHeader, mInt, mInvInt,  mVitHeader, mVit, mInvVit;
     Button mViewInventory, mHome, mEquipButton, mYes, mNo, mDeleteButton, mCharacterButton;
 
     @Override
@@ -56,6 +57,8 @@ public class ActivityItemView extends AppCompatActivity {
         }
 
         mNameHeader = (TextView) findViewById(R.id.name_header);
+        mRarity = (TextView) findViewById(R.id.rarity);
+        mType = (TextView) findViewById(R.id.type);
         mItemName = (TextView) findViewById(R.id.item_name);
         mLevelheader = (TextView) findViewById(R.id.level_header);
         mItemLevel = (TextView) findViewById(R.id.item_level);
@@ -63,10 +66,16 @@ public class ActivityItemView extends AppCompatActivity {
         mInt = (TextView) findViewById(R.id.item_intellect);
         mVitHeader = (TextView) findViewById(R.id.vit_header);
         mVit = (TextView) findViewById(R.id.item_vitality);
+        mDamageHeader = (TextView) findViewById(R.id.damage_header);
+        mDamage = (TextView) findViewById(R.id.damage);
         mItemName.setText(String.valueOf(mItem.getName()));
         mItemLevel.setText(String.valueOf(mItem.getLevel()));
         mInt.setText(String.valueOf(mItem.getIntellect()));
         mVit.setText(String.valueOf(mItem.getVitality()));
+        mType.setText(String.valueOf(mItem.getType()));
+        mDamage.setText(String.valueOf(mItem.getBaseDamage()));
+        mRarity.setTextColor(Color.parseColor(mItem.getRarityColour()));
+        mRarity.setText(String.valueOf(mItem.getRarity()));
         mViewInventory = (Button) findViewById(R.id.inventory_button);
         mEquipButton = (Button) findViewById(R.id.equip_item);
         mDeleteButton = (Button) findViewById(R.id.delete_button);
@@ -144,12 +153,19 @@ public class ActivityItemView extends AppCompatActivity {
                         setContentView(R.layout.activity_replace_equip);
                         Loot equippedItem = mPlayer.findItemBySlot(mItem.getEnumType());
                         mItemName = (TextView) findViewById(R.id.equip_name);
+                        mLevelheader = (TextView) findViewById(R.id.level_header);
                         mItemLevel = (TextView) findViewById(R.id.equip_level);
+                        mIntHeader = (TextView) findViewById(R.id.int_header);
                         mInt = (TextView) findViewById(R.id.equip_int);
+                        mVitHeader = (TextView) findViewById(R.id.vit_header);
                         mVit = (TextView) findViewById(R.id.equip_vit);
+                        mInvNameHeader = (TextView) findViewById(R.id.inv_name);
                         mInvName = (TextView) findViewById(R.id.inv_name);
+                        mInvLevelHeader = (TextView) findViewById(R.id.inv_level_header);
                         mInvLevel = (TextView) findViewById(R.id.inv_level);
+                        mInvIntHeader = (TextView) findViewById(R.id.inv_int_header);
                         mInvInt = (TextView) findViewById(R.id.inv_int);
+                        mInvVitHeader = (TextView) findViewById(R.id.inv_int_header);
                         mInvVit = (TextView) findViewById(R.id.inv_vit);
                         mYes = (Button) findViewById(R.id.yes_button);
                         mNo = (Button) findViewById(R.id.no_button);

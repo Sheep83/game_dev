@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class Player implements Fightable{
 
     private String mName;
-    private int mSkillPoints, mHealth, mMaxHealth, mXp, mMana, mMaxMana,  mLevel, mTurnCount, mBaseDamage, mIntMod, mManaMod, mDmgMod, mHealthMod, mIntellect, mMaxInt, mVitality, mEffVit;
+    private int mXpGained, mDealtDamage, mSkillPoints, mHealth, mMaxHealth, mXp, mMana, mMaxMana,  mLevel, mTurnCount, mBaseDamage, mIntMod, mManaMod, mDmgMod, mHealthMod, mIntellect, mMaxInt, mVitality;
     private ArrayList<Loot> mInventory, mEquipped;
     private ArrayList<Skill> mSkillTree, mSkillsKnown;
-    private boolean mActive;
+    private boolean mActive, mLevelUp;
     private Loot loot;
 
     public Player (String name) {
@@ -28,9 +28,11 @@ public class Player implements Fightable{
         mSkillsKnown = new ArrayList<Skill>();
         mHealth = 100;
         mIntellect = 1;
+        mVitality = 1;
         mMana = 100;
         mLevel = 1;
         mXp = 0;
+        mXpGained = 0;
         mSkillPoints = 0;
 //        mTurnCount = 0;
         mDmgMod = 1;
@@ -39,12 +41,13 @@ public class Player implements Fightable{
         mMaxInt = mIntellect;
         mActive = true;
         mBaseDamage = 40;
+        mDealtDamage = 0;
+        mLevelUp = false;
     }
 
     public void attack(Fightable target, Skill skill, Dice dice){
         if (this.manaCheck(skill)) {
             Log.d("Player attacking with ", skill.getName());
-//            this.setBaseDamage(skill.getDamage());
             dice.setSides(skill.getDamage());
             int damage = dice.roll();
             if (damage < skill.getMinDamage()){
@@ -53,10 +56,16 @@ public class Player implements Fightable{
             double mod = (this.getDmgMod() / 10) + 1;
             double exactDamage = (damage * mod);
             damage = (int)Math.ceil(exactDamage);
-//            this.setBaseDamage(damage);
             target.decHealth(damage);
-            this.decMana(skill.getManaCost() + (this.getManaMod() * 2));
-            this.incMana(((this.getManaMod() * 3) + 10));
+            this.setDealtDamage(damage);
+            int manaRegen = this.getIntellect() + 10;
+            int manaCost = skill.getManaCost() - this.getIntellect();
+            this.decMana(manaCost);
+            this.incMana(manaRegen);
+            if(this.getMana() > this.getMaxMana()){
+                this.setMana(this.getMaxMana());
+            }
+
         }
 
     }
@@ -66,6 +75,38 @@ public class Player implements Fightable{
             this.mEquipped.add(item);
             this.resetStats();
         }
+    }
+
+    public void setXpGained(int value){
+        this.mXpGained = value;
+    }
+
+    public void setVitality(int value){
+        this.mVitality = value;
+    }
+
+    public int getXpGained(){
+        return this.mXpGained;
+    }
+
+    public int getVitality(){
+        return this.mVitality;
+    }
+
+    public void setMaxMana(int value){
+        this.mMaxMana = value;
+    }
+
+    public int getMaxMana(){
+        return this.mMaxMana;
+    }
+
+    public void setLevelUp(boolean value){
+        this.mLevelUp = value;
+    }
+
+    public boolean getLevelUp(){
+        return this.mLevelUp;
     }
 
     public void setManaMod(int value){
@@ -229,24 +270,26 @@ public class Player implements Fightable{
         }
     }
 
-    public Loot rollForLoot(Dice dice, Dice nulldice){
+    public Loot rollForLoot(Dice dice, Dice nulldice) {
         ArrayList<String> mLootEnchants = new ArrayList<>();
-        mLootEnchants.add("Fire");
-        mLootEnchants.add("Ice");
-        mLootEnchants.add("Arcane");
+        mLootEnchants.add("Destruction");
+        mLootEnchants.add("Despair");
+        mLootEnchants.add("Savagery");
+        mLootEnchants.add("Domination");
+        mLootEnchants.add("Terror");
+        mLootEnchants.add("Enlightenment");
+
         int level = this.getLevel();
         int levelRoll = dice.roll();
-        if(levelRoll < 30){
+        if (levelRoll < 30) {
             level = this.getLevel() - 1;
-        }else if(levelRoll >= 30 && levelRoll < 75)
-        {
+        } else if (levelRoll >= 30 && levelRoll < 75) {
             level = this.getLevel();
-        }else
-        {
+        } else {
             level = this.getLevel() + 1;
         }
         Loot loot = new Loot(this.rollForSlot(dice), this.rollForRarity(dice), level);
-        if (loot.getEnumType() == Loot.Slot.WEAPON){
+        if (loot.getEnumType() == Loot.Slot.WEAPON) {
             ArrayList<String> mWeaponTypes = new ArrayList<String>();
             mWeaponTypes.add("Sword");
             mWeaponTypes.add("Staff");
@@ -258,8 +301,7 @@ public class Player implements Fightable{
             nulldice.setSides(mLootEnchants.size());
             loot.setEnchant(mLootEnchants.get(nulldice.roll()));
             loot.setBaseDamage(40 + (loot.getLevel() * 3));
-        }else
-        {
+        } else {
             ArrayList<String> mArmourTypes = new ArrayList<String>();
             mArmourTypes.add("Robes");
             mArmourTypes.add("Epaulets");
@@ -271,33 +313,49 @@ public class Player implements Fightable{
             nulldice.setSides(mLootEnchants.size());
             loot.setEnchant(mLootEnchants.get(nulldice.roll()));
         }
-        if(loot.getEnumRarity() == Loot.Rarity.COMMON){
+        if (loot.getEnumRarity() == Loot.Rarity.COMMON) {
             nulldice.setSides(this.getLevel());
             loot.setVitality(nulldice.roll());
-        }else if(loot.getEnumRarity() == Loot.Rarity.RARE){
+            if (loot.getVitality() == 0) {
+                loot.setVitality((int) Math.ceil(this.getLevel() / 2));
+            }
+        } else if (loot.getEnumRarity() == Loot.Rarity.RARE) {
             nulldice.setSides(this.getLevel() + 1);
             loot.setVitality(nulldice.roll());
+            if (loot.getVitality() == 0) {
+                loot.setVitality((int) Math.ceil(this.getLevel() / 2));
+            }
             loot.setIntellect(nulldice.roll());
-        }else if(loot.getEnumRarity() == Loot.Rarity.EPIC) {
+            if (loot.getIntellect() == 0) {
+                loot.setIntellect((int) Math.ceil(this.getLevel() / 2));
+            }
+        } else if (loot.getEnumRarity() == Loot.Rarity.EPIC) {
             nulldice.setSides(this.getLevel() + 2);
             loot.setVitality(nulldice.roll());
+            if (loot.getVitality() == 0) {
+                loot.setVitality((int) Math.ceil(this.getLevel()));
+            }
             loot.setIntellect(nulldice.roll());
-        }
+            if (loot.getIntellect() == 0) {
+                loot.setIntellect((int) Math.ceil(this.getLevel()));
+            }
 
+        }
         return loot;
     }
 
 
     public Loot.Rarity rollForRarity(Dice dice){
         int roll = dice.roll();
+
         if (roll < 60){
             return Loot.Rarity.COMMON;
-        }else if (roll >= 60 && roll < 90){
+        }else if (roll >= 60 && roll < 95){
             return Loot.Rarity.RARE;
-        }else
-        {
+        }else if (roll >= 95){
             return Loot.Rarity.EPIC;
         }
+        return Loot.Rarity.COMMON;
     }
 
     public int rollForMonsterLevel(Dice dice){
@@ -343,6 +401,7 @@ public class Player implements Fightable{
         this.setMana((100));
         this.mActive = true;
         this.mIntellect = 1;
+        this.mVitality = 1;
         this.calcStats();
     }
 
@@ -350,31 +409,37 @@ public class Player implements Fightable{
         return this.mBaseDamage;
     }
 
+    public void setBaseDamage(int value) {
+        this.mBaseDamage = value;
+    }
+
+    public int getDealtDamage() {
+        return this.mDealtDamage;
+    }
+
+    public void setDealtDamage(int value) {
+        this.mDealtDamage = value;
+    }
+
     public int getIntellect() {
         return this.mIntellect;
+    }
+
+    public void setIntellect(int value) {
+        this.mIntellect = value;
     }
 
     public void incIntellect(int value) {
         this.mIntellect += value;
     }
 
-    public void setBaseDamage(int value) {
-        this.mBaseDamage = value;
-    }
 
     public Skill getSkill(int value) {
         return this.mSkillsKnown.get(value);
     }
 
-    public void checkLevel() {
-        if (this.getXp() >= (this.getLevel() * 120)){
+    public void levelUp() {
             this.incLevel();
-//            this.setXp(this.getXp() - (this.getLevel() * 120));
-            return;
-        }else
-        {
-           return;
-        }
     }
 
     public boolean levelUpCheck(){
@@ -387,26 +452,27 @@ public class Player implements Fightable{
     }
 
     public void calcStats(){
-        int healthMod = 0;
-        int manaMod = 0;
-        int intMod = 0;
+        int healthMod = 1;
+        int manaMod = 1;
+        int intMod = 1;
 
         if(this.getEquipped() > 0){
             for (Loot loot : this.getEquippedArray()){
                 if(loot.getEnumType() == Loot.Slot.WEAPON){
                     this.setBaseDamage(loot.getBaseDamage());
                 }
-                healthMod += ((loot.getVitality() * 5) + this.getLevel());
-                manaMod += loot.getIntellect() - 1;
-                intMod += loot.getIntellect() + 1;
+                healthMod += loot.getVitality();
+                manaMod += loot.getIntellect();
+                intMod += loot.getIntellect();
             }
-            this.setManaMod(manaMod);
+            this.setManaMod(manaMod + 1);
             this.setHealthMod(healthMod);
             this.setIntMod(intMod);
-            this.setDmgMod((int)Math.ceil(intMod * 0.8));
-            this.incHealth(healthMod + this.getLevel());
-            this.incIntellect(intMod);
-            this.incMana((manaMod * this.getLevel()) + this.getLevel());
+            this.setVitality(healthMod);
+            this.setDmgMod((int) Math.ceil(intMod * 0.8));
+            this.setHealth(100 + ((healthMod * 5) + (this.getLevel() * 2)));
+            this.setIntellect(intMod);
+            this.setMana(100 + (this.getIntellect() * this.getLevel()) + this.getLevel());
             this.mMaxHealth = this.getHealth();
             this.mMaxInt = this.getIntellect();
             this.mMaxMana = this.getMana();

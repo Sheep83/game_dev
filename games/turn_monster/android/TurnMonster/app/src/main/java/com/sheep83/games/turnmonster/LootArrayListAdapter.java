@@ -38,14 +38,15 @@ class LootArrayListAdapter extends ArrayAdapter<Loot> {
         TextView text = (TextView) view.findViewById(R.id.item_description);
 //        title.setTypeface(pencil);
 //        text.setTypeface(pencil);
-        title.setText(loot.getType());
-        int textLength = loot.getEnchant().length();
-        if(textLength >= 100){
-            String textTrim = loot.getEnchant().substring(0, 100) + "...";
-            text.setText(textTrim);
-        }else{
-            text.setText(loot.getEnchant());
-        }
+        title.setText(loot.getName());
+        text.setText("Level: " + loot.getLevel() + " Intellect: " + loot.getIntellect() + " Vitality: " + loot.getVitality());
+//        int textLength = loot.getEnchant().length();
+//        if(textLength >= 100){
+//            String textTrim = loot.getEnchant().substring(0, 100) + "...";
+//            text.setText(textTrim);
+//        }else{
+//            text.setText(loot.getEnchant());
+//        }
         return view;
     }
 

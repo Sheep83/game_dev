@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class ActivityGameOver extends AppCompatActivity {
 
-    TextView mPlayerHeader, mMonsterHeader, mPlayerText, mMonsterText;
+    TextView mCommentary;
     Button mRestart;
     Player mPlayer;
     Monster mMonster;
@@ -29,10 +29,8 @@ public class ActivityGameOver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        mPlayerHeader = (TextView) findViewById(R.id.player_header);
-        mMonsterHeader = (TextView) findViewById(R.id.monster_header);
-        mPlayerText = (TextView) findViewById(R.id.player);
-        mMonsterText = (TextView) findViewById(R.id.monster);
+        mCommentary = (TextView) findViewById(R.id.commentary);
+        mCommentary.setText(String.valueOf(mPlayer.getName() + " was killed by " + mMonster.getName() + " :-("));
         mRestart = (Button) findViewById(R.id.restart);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -43,8 +41,6 @@ public class ActivityGameOver extends AppCompatActivity {
         Log.d("Monster : ", "" + monster);
         mPlayer = gson.fromJson(player, Player.class);
         mMonster = gson.fromJson(monster, Monster.class);
-        mPlayerText.setText(String.valueOf(mPlayer.getName() + mPlayer.getHealth()));
-        mMonsterText.setText(String.valueOf(mMonster.getName() + mMonster.getHealth()));
 
         mRestart.setOnClickListener(new View.OnClickListener() {
             @Override

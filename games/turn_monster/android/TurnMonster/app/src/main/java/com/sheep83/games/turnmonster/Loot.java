@@ -86,6 +86,29 @@ public class Loot {
         this.mIntellect = value;
     }
 
+    public String getRarity(){
+        if(this.getEnumRarity() == Rarity.COMMON){
+            return "Common";
+        }else if (this.getEnumRarity() == Rarity.RARE){
+            return "Rare";
+        }else if (this.getEnumRarity() == Rarity.EPIC){
+            return "Epic";
+        }
+        return null;
+    }
+
+    public String getRarityColour(){
+        if(this.getEnumRarity() == Rarity.COMMON){
+            return "#00cc00";
+        }else if (this.getEnumRarity() == Rarity.RARE){
+            return "#0066ff";
+        }else if (this.getEnumRarity() == Rarity.EPIC){
+            return "#cc00ff";
+        }
+        return null;
+    }
+
+
     public int getStrength() {
         return this.mStrength;
     }
@@ -106,3 +129,4 @@ public class Loot {
         this.mVitality = value;
     }
 }
+

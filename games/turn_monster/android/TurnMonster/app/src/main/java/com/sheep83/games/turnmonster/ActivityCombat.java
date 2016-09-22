@@ -51,12 +51,7 @@ public class ActivityCombat extends AppCompatActivity {
             startActivity(newIntent);
 
         }
-//        mPlayerName.setText(mPlayer.getName());
-//        mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
-//        mPlayerHealth.setText(String.valueOf(mPlayer.getHealth()));
-//        mMNameDisplay.setText(mMonster.getName());
-//        mMTypeDisplay.setText(mMonster.getType());
-//        mMonsterHealth.setText(String.valueOf(mMonster.getHealth()));
+
         do {
             if (mPlayer.getActive() && !mPlayer.deadCheck()) {
                 setContentView(R.layout.activity_combat_player);
@@ -90,18 +85,29 @@ public class ActivityCombat extends AppCompatActivity {
         if(mPlayer.deadCheck() || mMonster.deadCheck()){
             if(mMonster.deadCheck()){
                 mPlayer.incXp(60);
+                mPlayer.setXpGained(60);
                 if(mPlayer.levelUpCheck()){
+                    mPlayer.setLevelUp(true);
+                    mPlayer.levelUp();
                     mPlayer.incSkillPoints();
-                    mPlayer.checkLevel();
                 }
-                mLoot = mPlayer.rollForLoot(mGamedice, mNullDice);
-                Log.d("Loot ", "" + mLoot);
-                String looted = new Gson().toJson(mLoot);
-                String player = new Gson().toJson(mPlayer);
-                Intent lootIntent = new Intent(ActivityCombat.this, ActivityLoot.class);
-                lootIntent.putExtra("player", player);
-                lootIntent.putExtra("looted", looted);
-                startActivity(lootIntent);
+                if(mGamedice.roll() > 50) {
+                    mLoot = mPlayer.rollForLoot(mGamedice, mNullDice);
+                    Log.d("Loot ", "" + mLoot);
+                    String looted = new Gson().toJson(mLoot);
+                    String player = new Gson().toJson(mPlayer);
+                    Intent lootIntent = new Intent(ActivityCombat.this, ActivityLoot.class);
+                    lootIntent.putExtra("player", player);
+                    lootIntent.putExtra("looted", looted);
+                    startActivity(lootIntent);
+                }else
+                {
+                    String player = new Gson().toJson(mPlayer);
+                    Intent lootIntent = new Intent(ActivityCombat.this, ActivityLoot.class);
+                    lootIntent.putExtra("player", player);
+                    startActivity(lootIntent);
+                }
+
             }
             else
             {

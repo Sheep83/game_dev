@@ -1,42 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:weightSum="1">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/game_win"
+    android:id="@+id/win_header"
+    android:textAlignment="center"
+    android:textSize="48dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_header"
-        android:text="Player Name:"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_name"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/xp_header"
-        android:text="Player XP:"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_xp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/loot_header"
-        android:text="Dropped Item:"/>
+        android:textAlignment="center"
+        android:textSize="32dp" />
 
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.61">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_name"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:id="@+id/loot_text"/>
+        android:id="@+id/rarity"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/type"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="left|bottom" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:id="@+id/damage"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        android:layout_gravity="right|bottom" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:text="@string/damage"
+        android:layout_height="wrap_content"
+        android:id="@+id/damage_header"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="right|center_vertical" />
+
+</FrameLayout>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginTop="20dp">
+
+    <TextView
+        android:text="@string/intellect"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/int_header"
+        android:layout_below="@+id/level_header"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="top|left"
+        android:gravity="center" />
+
+    <TextView
+        android:text="@string/vitality"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/vit_header"
+        android:layout_below="@+id/int_header"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal|top"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_vitality"
+        android:layout_below="@+id/vit_header"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_intellect"
+        android:layout_below="@+id/int_header"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:layout_gravity="left|center_vertical" />
+
+    <TextView
+        android:text="@string/level"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_header"
+        android:layout_below="@+id/item_name"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_gravity="top|right"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_level"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:layout_gravity="right|center_vertical" />
+
+</FrameLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <Button
         android:layout_width="wrap_content"
@@ -48,16 +156,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Equip Item"
-        android:id="@+id/equip"
-        />
+        android:text="Discard Item"
+        android:id="@+id/discard"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Discard Item"
-        android:id="@+id/discard"
-        />
-
+        android:text="Restart"
+        android:id="@+id/restart"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -20,9 +20,9 @@ public class PlayerTest {
     @Before
     public void before(){
         player = new Player("test");
-        monster = new Monster("testname", "testtype", 50, 1);
+        monster = new Monster("testname", 100, 50, 1, 1);
         dice = new Dice();
-        loot = new Loot("Sword", "Fire", 2);
+        loot = new Loot(Loot.Slot.ARMOUR, Loot.Rarity.COMMON, 2);
     }
 
     @Test

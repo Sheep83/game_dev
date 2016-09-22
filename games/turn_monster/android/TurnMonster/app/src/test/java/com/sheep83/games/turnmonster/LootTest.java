@@ -11,13 +11,13 @@ import static org.junit.Assert.assertEquals;
 public class LootTest {
     Player player;
     Loot loot;
-    Dice dice;
+    Dice dice, nullDice;
 
     @Before
     public void before(){
         dice = new Dice(100);
         player = new Player("testplayer");
-        loot = player.rollForLoot(dice);
+        loot = player.rollForLoot(dice, nullDice);
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.sheep83.games.turnmonster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class ActivityCharacterView extends AppCompatActivity {
     Player mPlayer;
     Bundle extras;
     ListView mSkillListView, mEquipListView, mInvListView;
-    TextView mNameHeader, mPlayerName, mLevelheader, mPlayerLevel, mHealthHeader, mHealth, mIntHeader, mInt, mManaHeader, mMana;
+    TextView mXP, mXPHeader, mRarity, mDamageHeader, mType, mDamage, mNameHeader, mPlayerName, mLevelheader, mPlayerLevel, mHealthHeader, mHealth, mIntHeader, mInt, mIntBonus, mManaHeader, mMana, mVitHeader, mVit, mVitBonus;
     Button mViewInventory, mHome, mHomeButton, mCharacterView, mEquipButton, mDeleteButton;
 
     @Override
@@ -48,6 +49,7 @@ public class ActivityCharacterView extends AppCompatActivity {
             }.getType();
             mPlayers = gson.fromJson(playerjson, objectType);
             mPlayer = mPlayers.get(0);
+            mPlayer.calcStats();
         } else {
             Log.d("Game: ", "Time and space is broken :(");
             Intent newIntent = new Intent(ActivityCharacterView.this, ActivityNewPlayer.class);
@@ -62,13 +64,25 @@ public class ActivityCharacterView extends AppCompatActivity {
         mHealth = (TextView) findViewById(R.id.player_health);
         mIntHeader = (TextView) findViewById(R.id.int_header);
         mInt = (TextView) findViewById(R.id.player_int);
+        mIntBonus = (TextView) findViewById(R.id.int_bonus);
+        mVitBonus = (TextView) findViewById(R.id.vit_bonus);
+        mVitHeader = (TextView) findViewById(R.id.vit_header);
+        mVit = (TextView) findViewById(R.id.player_vit);
         mManaHeader = (TextView) findViewById(R.id.mana_header);
         mMana = (TextView) findViewById(R.id.player_mana);
+        mXP = (TextView) findViewById(R.id.player_xp);
+        mXPHeader = (TextView) findViewById(R.id.xp_header);
         mPlayerName.setText(mPlayer.getName());
         mPlayerLevel.setText(String.valueOf(mPlayer.getLevel()));
         mHealth.setText(String.valueOf(mPlayer.getHealth()));
         mInt.setText(String.valueOf(mPlayer.getIntellect()));
         mMana.setText(String.valueOf(mPlayer.getMana()));
+        mVit.setText(String.valueOf(mPlayer.getVitality()));
+        mVitBonus.setTextColor(Color.parseColor("#00cc00"));
+        mIntBonus.setTextColor(Color.parseColor("#00cc00"));
+        mVitBonus.setText("+" + String.valueOf(mPlayer.getVitality() - 1));
+        mIntBonus.setText("+" + String.valueOf(mPlayer.getIntellect() - 1));
+        mXP.setText(String.valueOf(mPlayer.getXp()));
         mViewInventory = (Button) findViewById(R.id.inventory_button);
         mHome = (Button) findViewById(R.id.home_button);
         mEquipped = mPlayer.getEquippedArray();
@@ -114,7 +128,12 @@ public class ActivityCharacterView extends AppCompatActivity {
         mEquipListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 setContentView(R.layout.activity_item_view);
-                mNameHeader = (TextView) findViewById(R.id.name_header);
+                mRarity = (TextView) findViewById(R.id.rarity);
+                mType = (TextView) findViewById(R.id.type);
+                mDamage = (TextView) findViewById(R.id.damage);
+                mDamageHeader = (TextView) findViewById(R.id.damage_header);
+//                mNameHeader = (TextView) findViewById(R.id.name_header);
+//                mNameHeader.setVisibility(View.INVISIBLE);
                 TextView mItemName = (TextView) findViewById(R.id.item_name);
                 mLevelheader = (TextView) findViewById(R.id.level_header);
                 TextView mItemLevel = (TextView) findViewById(R.id.item_level);
@@ -127,11 +146,16 @@ public class ActivityCharacterView extends AppCompatActivity {
                 mEquipButton = (Button) findViewById(R.id.equip_item);
 //                mHomeButton = (Button) findViewById(R.id.home_button);
                 mDeleteButton = (Button) findViewById(R.id.delete_button);
-                mDeleteButton.setVisibility(View.GONE);
-                mEquipButton.setVisibility(View.GONE);
-//                mHomeButton.setVisibility(View.GONE);
+                mDeleteButton.setVisibility(View.INVISIBLE);
+                mEquipButton.setVisibility(View.INVISIBLE);
                 Loot selectedItem = mPlayer.getEquippedArray().get(position);
                 mItemName.setText(String.valueOf(selectedItem.getName()));
+                mItemLevel.setText(String.valueOf(selectedItem.getLevel()));
+                mType.setText(String.valueOf(selectedItem.getType()));
+                mDamage.setText(String.valueOf(selectedItem.getBaseDamage()));
+                mRarity.setTextColor(Color.parseColor(selectedItem.getRarityColour()));
+                mRarity.setText(String.valueOf(selectedItem.getRarity()));
+                mItemLevel.setText(String.valueOf(selectedItem.getLevel()));
                 mItemLevel.setText(String.valueOf(selectedItem.getLevel()));
                 mInt.setText(String.valueOf(selectedItem.getIntellect()));
                 mVit.setText(String.valueOf(selectedItem.getVitality()));

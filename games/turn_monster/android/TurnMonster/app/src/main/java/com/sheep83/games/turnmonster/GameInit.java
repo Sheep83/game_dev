@@ -51,6 +51,7 @@ public class GameInit extends AppCompatActivity{
         Log.d("Player JSON String : ", "" + json);
         Gson gson = new Gson();
         mPlayer = gson.fromJson(json, Player.class);
+        mPlayer.calcStats();
         for(Monster monster : mMonsters){
             if(monster.getMinLevel() <= mPlayer.getLevel()){
                 levelAppropriate.add(monster);

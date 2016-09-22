@@ -37,17 +37,20 @@ class SkillArrayListAdapter extends ArrayAdapter<Skill>{
         Context context = view.getContext();
 //        pencil = Typeface.createFromAsset(context.getAssets(), "fonts/pencil.ttf");
         TextView title = (TextView) view.findViewById(R.id.skill_name);
-        TextView text = (TextView) view.findViewById(R.id.skill_description);
+        TextView mana = (TextView) view.findViewById(R.id.mana_cost);
+        TextView damage = (TextView) view.findViewById(R.id.skill_damage);
 //        title.setTypeface(pencil);
 //        text.setTypeface(pencil);
         title.setText(skill.getName());
-        int textLength = skill.getDescription().length();
-        if(textLength >= 100){
-            String textTrim = skill.getDescription().substring(0, 100) + "...";
-            text.setText(textTrim);
-        }else{
-            text.setText(skill.getDescription());
-        }
+        mana.setText("Mana cost: " + skill.getManaCost());
+        damage.setText("Damage: " + skill.getDamage());
+//        int textLength = skill.getDescription().length();
+//        if(textLength >= 100){
+//            String textTrim = skill.getDescription().substring(0, 100) + "...";
+//            text.setText(textTrim);
+//        }else{
+//            text.setText(skill.getDescription());
+//        }
         return view;
     }
 

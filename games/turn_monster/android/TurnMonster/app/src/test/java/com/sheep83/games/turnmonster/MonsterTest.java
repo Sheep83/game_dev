@@ -16,7 +16,7 @@ public class MonsterTest {
     @Before
     public void before() {
         player = new Player("test");
-        monster = new Monster("testname", "testtype", 50, 1);
+        monster = new Monster("testname", 100, 50, 1.0, 1.0);
     }
 
     @Test

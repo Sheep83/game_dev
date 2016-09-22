@@ -21,10 +21,13 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Inventory"
-        android:id="@+id/inventory_header"/>
+        android:id="@+id/inventory_header"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="24dp" />
 
     <ListView
         android:layout_marginLeft="10dp"
@@ -34,7 +37,5 @@
         android:id="@+id/inventory_list_view"
         android:divider="#222121"
         android:dividerHeight="1px" />
-
-
 
 </LinearLayout>
